@@ -1217,40 +1217,44 @@ function formatTime(timeStr) {
 
 async function loadWeather() {
     const city = state.city;
-    const apiKey = "YOUR_API_KEY";
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)},UZ&appid=${apiKey}&units=metric&lang=uz`;
+    // Kalitsiz API - darhol ishlaydi
+    const url = `https://wttr.in/${encodeURIComponent(city)}?format=j1&lang=uz`;
     
     try {
+        console.log("Ob-havo so'ralmoqda:", url);
         const res = await fetch(url);
         const data = await res.json();
-        if (data.cod === 200) {
-            const temp = Math.round(data.main.temp);
-            const humidity = data.main.humidity;
-            const wind = data.wind.speed;
-            const desc = data.weather[0].description;
-            const icon = getWeatherIcon(data.weather[0].icon);
+        
+        if (data && data.current_condition && data.current_condition[0]) {
+            const current = data.current_condition[0];
+            const temp = current.temp_C;
+            const humidity = current.humidity;
+            const wind = current.windspeedKmph;
+            const desc = current.weatherDesc[0].value;
+            
+            // Ikonani aniqlash
+            let icon = "🌡️";
+            if (desc.includes("Sunny") || desc.includes("Quyoshli")) icon = "☀️";
+            else if (desc.includes("Cloud") || desc.includes("Bulutli")) icon = "☁️";
+            else if (desc.includes("Rain") || desc.includes("Yomg'ir")) icon = "🌧️";
+            else if (desc.includes("Snow") || desc.includes("Qor")) icon = "❄️";
+            else if (desc.includes("Mist") || desc.includes("Tuman")) icon = "🌫️";
             
             document.getElementById('weather-icon').textContent = icon;
             document.getElementById('weather-temp').textContent = `${temp}°C`;
             document.getElementById('weather-desc').textContent = desc;
-            document.getElementById('weather-details').innerHTML = `<span>💧 ${humidity}%</span><span>🌬️ ${wind} m/s</span>`;
+            document.getElementById('weather-details').innerHTML = 
+                `<span>💧 ${humidity}%</span><span>🌬️ ${wind} km/h</span>`;
+                
+            console.log("Ob-havo yuklandi:", temp, "°C");
         } else {
+            console.log("Ob-havo ma'lumoti topilmadi");
             useDemoWeather();
         }
     } catch(e) {
+        console.error("Ob-havo xatosi:", e);
         useDemoWeather();
     }
-}
-
-function getWeatherIcon(iconCode) {
-    const icons = {
-        "01d": "☀️", "01n": "🌙", "02d": "⛅", "02n": "☁️",
-        "03d": "☁️", "03n": "☁️", "04d": "☁️", "04n": "☁️",
-        "09d": "🌧️", "09n": "🌧️", "10d": "🌦️", "10n": "🌧️",
-        "11d": "⛈️", "11n": "⛈️", "13d": "❄️", "13n": "❄️",
-        "50d": "🌫️", "50n": "🌫️"
-    };
-    return icons[iconCode] || "🌡️";
 }
 
 function useDemoWeather() {
