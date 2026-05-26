@@ -11,41 +11,42 @@
             --bg: #0A0A0F;
             --bg2: #0F0F1A;
             --bg3: #141420;
-            --green: #1DB954;
-            --green-dim: rgba(29,185,84,0.15);
-            --green-glow: rgba(29,185,84,0.4);
-            --gold: #F0A500;
+            --green: #10b981;
+            --green-dark: #059669;
+            --green-dim: rgba(16,185,129,0.15);
+            --gold: #F59E0B;
+            --gold-dim: rgba(245,158,11,0.15);
+            --blue: #3B82F6;
+            --blue-dim: rgba(59,130,246,0.15);
             --text: #FFFFFF;
             --text-muted: rgba(255,255,255,0.5);
             --text-dim: rgba(255,255,255,0.3);
             --glass: rgba(255,255,255,0.05);
-            --glass-border: rgba(255,255,255,0.1);
+            --glass-border: rgba(255,255,255,0.08);
             --radius: 20px;
             --radius-sm: 12px;
             --red: #ef4444;
-            --blue: #3B82F6;
-            --blue-dim: rgba(59,130,246,0.15);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: 'Cairo', sans-serif; }
-        body::before { content: ''; position: fixed; inset: 0; background-image: repeating-conic-gradient(rgba(240,165,0,0.03) 0deg, transparent 30deg, transparent 60deg); pointer-events: none; z-index: 0; }
-        #app { position: fixed; inset: 0; display: flex; flex-direction: column; max-width: 430px; margin: 0 auto; z-index: 1; }
-        .page { flex: 1; overflow-y: auto; overflow-x: hidden; display: none; flex-direction: column; padding: 0 0 80px 0; }
-        .page.active { display: flex; animation: pageIn 0.3s ease; }
-        @keyframes pageIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        body::before { content: ''; position: fixed; inset: 0; background-image: repeating-conic-gradient(rgba(245,158,11,0.03) 0deg, transparent 30deg, transparent 60deg); pointer-events: none; z-index: 0; }
+        #app { position: fixed; inset: 0; display: flex; flex-direction: column; max-width: 500px; margin: 0 auto; z-index: 1; }
+        .page { flex: 1; overflow-y: auto; overflow-x: hidden; display: none; flex-direction: column; padding: 0 0 80px 0; scroll-behavior: smooth; }
+        .page.active { display: flex; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .page::-webkit-scrollbar { width: 3px; }
-        .page::-webkit-scrollbar-thumb { background: var(--green-dim); border-radius: 2px; }
-        .page-header { padding: 20px 20px 0; position: sticky; top: 0; background: linear-gradient(180deg, var(--bg) 70%, transparent); z-index: 10; padding-bottom: 10px; }
+        .page::-webkit-scrollbar-thumb { background: var(--green-dim); border-radius: 3px; }
+        .page-header { padding: 20px 20px 0; position: sticky; top: 0; background: linear-gradient(180deg, var(--bg) 70%, transparent); z-index: 10; padding-bottom: 12px; }
         .header-city { font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         .header-city span { color: var(--green); }
         .city-buttons { display: flex; gap: 8px; }
-        .city-buttons button { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 30px; padding: 4px 10px; font-size: 12px; color: var(--text-muted); cursor: pointer; }
-        .gps-btn { background: var(--blue-dim); border-color: rgba(59,130,246,0.3); }
+        .city-buttons button { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 30px; padding: 4px 12px; font-size: 12px; color: var(--text-muted); cursor: pointer; font-family: inherit; }
+        .city-buttons button:active { background: var(--green-dim); color: var(--green); }
+        .gps-btn { background: var(--blue-dim); border: 1px solid rgba(59,130,246,0.3); }
         .header-date { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
         .header-hijri { font-size: 13px; color: var(--gold); margin-top: 2px; font-weight: 600; }
-
-        /* WEATHER CARD */
+        
         .weather-card { margin: 14px 20px; background: linear-gradient(135deg, var(--blue-dim), rgba(59,130,246,0.05)); border: 1px solid rgba(59,130,246,0.3); border-radius: var(--radius); padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; }
         .weather-main { display: flex; align-items: center; gap: 12px; }
         .weather-icon { font-size: 42px; }
@@ -53,89 +54,84 @@
         .weather-info { text-align: right; }
         .weather-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 4px; }
         .weather-details { font-size: 11px; color: var(--text-dim); display: flex; gap: 10px; }
-
-        .countdown-card { margin: 0 20px 14px; background: linear-gradient(135deg, rgba(29,185,84,0.12), rgba(29,185,84,0.06)); border: 1px solid var(--glass-border-green); border-radius: var(--radius); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; }
-        .countdown-label { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
-        .countdown-timer { font-size: 28px; font-weight: 900; color: var(--green); font-variant-numeric: tabular-nums; }
-        .countdown-next-label { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; text-align: right; }
-        .countdown-next-name { font-size: 16px; font-weight: 700; text-align: right; }
-
-        .prayer-list { padding: 0 20px; display: flex; flex-direction: column; gap: 10px; }
-        .prayer-card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); padding: 14px 16px; display: flex; align-items: center; gap: 12px; position: relative; }
-        .prayer-card.active { background: linear-gradient(135deg, rgba(29,185,84,0.12), rgba(29,185,84,0.06)); border-color: var(--green-glow); }
-        .prayer-card.done { opacity: 0.45; }
-        .prayer-icon { font-size: 24px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.06); border-radius: 10px; }
+        
+        .countdown-card { margin: 0 20px 14px; background: linear-gradient(135deg, var(--green-dim), rgba(16,185,129,0.05)); border: 1px solid rgba(16,185,129,0.3); border-radius: var(--radius); padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .countdown-label { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+        .countdown-timer { font-size: 28px; font-weight: 900; color: var(--green); font-variant-numeric: tabular-nums; letter-spacing: 1px; }
+        .countdown-next-label { font-size: 11px; color: var(--text-muted); text-align: right; margin-bottom: 4px; }
+        .countdown-next-name { font-size: 15px; font-weight: 700; text-align: right; }
+        
+        .prayer-list { padding: 0 20px; display: flex; flex-direction: column; gap: 8px; }
+        .prayer-card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); padding: 12px 16px; display: flex; align-items: center; gap: 12px; position: relative; }
+        .prayer-card.active { background: linear-gradient(135deg, var(--green-dim), rgba(16,185,129,0.08)); border-color: rgba(16,185,129,0.5); }
+        .prayer-card.done { opacity: 0.5; }
+        .prayer-icon { font-size: 24px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); border-radius: 10px; }
         .prayer-info { flex: 1; }
-        .prayer-name { font-size: 15px; font-weight: 600; }
+        .prayer-name { font-size: 15px; font-weight: 700; }
         .prayer-name-ar { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
-        .prayer-time { font-size: 18px; font-weight: 700; }
+        .prayer-time { font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; }
         .prayer-card.active .prayer-time { color: var(--green); }
-        .active-badge { position: absolute; top: -8px; right: 12px; background: var(--green); color: #000; font-size: 9px; font-weight: 800; padding: 2px 8px; border-radius: 20px; }
-
-        .skeleton { background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.09) 50%, rgba(255,255,255,0.04) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: var(--radius-sm); }
+        .active-badge { position: absolute; right: 12px; top: -8px; background: var(--green); color: #000; font-size: 9px; font-weight: 800; padding: 2px 8px; border-radius: 20px; }
+        
+        .skeleton { background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: var(--radius-sm); }
         @keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
         .loading-wrap { padding: 0 20px; }
         .skeleton-card { height: 68px; margin-bottom: 8px; }
         .skeleton-countdown { height: 85px; margin: 0 20px 14px; }
         .skeleton-weather { height: 80px; margin: 14px 20px; }
-
-        /* QIBLA PAGE */
-        .qibla-wrap { display: flex; flex-direction: column; align-items: center; padding: 20px; gap: 20px; }
-        .qibla-info-row { display: flex; gap: 12px; width: 100%; }
-        .qibla-info-card { flex: 1; background: var(--glass); border: 1px solid var(--glass-border); border-radius: var(--radius); padding: 14px; text-align: center; }
-        .qibla-info-label { font-size: 11px; color: var(--text-muted); margin-bottom: 6px; }
-        .qibla-info-value { font-size: 22px; font-weight: 700; color: var(--green); }
-        .qibla-info-dir { font-size: 13px; font-weight: 600; color: var(--gold); margin-top: 2px; }
-
-        /* COMPASS */
-        .compass-container { position: relative; width: 280px; height: 280px; margin: 0 auto; }
-        .compass-bg { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #0F0F1A, #0A0A0F); border: 2px solid rgba(240,165,0,0.2); box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+        
+        .qibla-container { padding: 20px; }
+        .qibla-stats { display: flex; gap: 12px; margin-bottom: 24px; }
+        .stat-card { flex: 1; background: var(--glass); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); padding: 12px; text-align: center; }
+        .stat-label { font-size: 11px; color: var(--text-muted); margin-bottom: 5px; }
+        .stat-value { font-size: 22px; font-weight: 700; color: var(--green); }
+        .stat-dir { font-size: 11px; color: var(--gold); margin-top: 3px; }
+        
+        .compass-container { position: relative; width: 260px; height: 260px; margin: 0 auto; }
+        .compass-bg { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 30% 30%, var(--bg2), var(--bg)); border: 2px solid rgba(245,158,11,0.2); box-shadow: 0 0 30px rgba(0,0,0,0.5); }
         .compass-rose { position: absolute; inset: 15px; border-radius: 50%; transition: transform 0.2s ease-out; }
-        .direction-label { position: absolute; font-size: 12px; font-weight: 700; color: var(--text-muted); }
+        .direction-label { position: absolute; font-size: 11px; font-weight: 700; color: var(--text-muted); }
         .direction-n { top: 5px; left: 50%; transform: translateX(-50%); color: var(--gold); }
-        .direction-ne { top: 20px; right: 20px; font-size: 10px; }
+        .direction-ne { top: 20px; right: 20px; font-size: 9px; }
         .direction-e { right: 5px; top: 50%; transform: translateY(-50%); }
-        .direction-se { bottom: 20px; right: 20px; font-size: 10px; }
+        .direction-se { bottom: 20px; right: 20px; font-size: 9px; }
         .direction-s { bottom: 5px; left: 50%; transform: translateX(-50%); }
-        .direction-sw { bottom: 20px; left: 20px; font-size: 10px; }
+        .direction-sw { bottom: 20px; left: 20px; font-size: 9px; }
         .direction-w { left: 5px; top: 50%; transform: translateY(-50%); }
-        .direction-nw { top: 20px; left: 20px; font-size: 10px; }
+        .direction-nw { top: 20px; left: 20px; font-size: 9px; }
         .qibla-arrow { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; transition: transform 0.2s ease-out; pointer-events: none; z-index: 15; }
-        .arrow-body { position: relative; width: 4px; height: 110px; background: linear-gradient(to bottom, var(--red), rgba(239,68,68,0.3)); border-radius: 2px; }
-        .arrow-tip { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); font-size: 22px; color: var(--red); filter: drop-shadow(0 0 3px var(--red)); }
+        .arrow-body { position: relative; width: 3px; height: 100px; background: linear-gradient(to bottom, var(--red), rgba(239,68,68,0.3)); border-radius: 2px; }
+        .arrow-tip { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); font-size: 20px; color: var(--red); filter: drop-shadow(0 0 3px var(--red)); }
         .arrow-tail { position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); width: 8px; height: 8px; background: var(--red); border-radius: 50%; opacity: 0.6; }
         .kaba-fixed { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 20; background: rgba(16,185,129,0.15); border-radius: 50%; width: 60px; height: 60px; display: flex; flex-direction: column; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
         .kaba-icon { font-size: 32px; }
         .kaba-label { font-size: 9px; color: var(--green); font-weight: 700; margin-top: 2px; }
-        .compass-center-dot { position: absolute; top: 50%; left: 50%; width: 10px; height: 10px; background: var(--gold); border-radius: 50%; transform: translate(-50%, -50%); z-index: 25; box-shadow: 0 0 6px var(--gold); }
-        .permission-btn { background: linear-gradient(135deg, var(--green), #17a34a); color: #000; border: none; border-radius: var(--radius); padding: 12px 24px; font-family: 'Cairo', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; margin-top: 10px; }
-        .compass-status { background: var(--glass); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); padding: 12px 20px; width: 100%; text-align: center; font-size: 13px; color: var(--text-muted); }
-
-        /* CALENDAR */
-        .calendar-wrap { padding: 20px; }
-        .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-        .cal-month { font-size: 18px; font-weight: 700; }
-        .cal-nav { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 10px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
-        .cal-dow { text-align: center; font-size: 11px; color: var(--text-dim); font-weight: 600; padding: 6px 0; }
+        .compass-center-dot { position: absolute; top: 50%; left: 50%; width: 10px; height: 10px; background: var(--gold); border-radius: 50%; transform: translate(-50%, -50%); z-index: 25; }
+        .permission-btn { width: 100%; background: var(--green); border: none; border-radius: var(--radius-sm); padding: 12px; color: #000; font-weight: 700; font-family: inherit; font-size: 14px; cursor: pointer; margin-top: 16px; }
+        .compass-status { background: var(--glass); border-radius: var(--radius-sm); padding: 12px; text-align: center; margin-top: 16px; font-size: 12px; color: var(--text-muted); }
+        
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; padding: 0 20px; margin-bottom: 16px; }
+        .month-nav { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 10px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; }
+        .month-label { font-size: 16px; font-weight: 700; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; padding: 0 20px; }
+        .cal-dow { text-align: center; font-size: 10px; color: var(--text-dim); padding: 6px 0; font-weight: 600; }
         .cal-dow.friday { color: var(--green); }
         .cal-day { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 8px; cursor: pointer; }
-        .cal-day .day-num { font-size: 13px; font-weight: 600; color: var(--text-muted); }
-        .cal-day .day-hijri { font-size: 7px; color: var(--text-dim); margin-top: 2px; }
-        .cal-day.today { background: linear-gradient(135deg, var(--green), #17a34a); }
-        .cal-day.today .day-num { color: #000; font-weight: 900; }
-        .cal-day.friday .day-num { color: var(--green); }
-        .cal-day.friday:not(.today) { background: rgba(29,185,84,0.06); }
-        .cal-day.other-month .day-num { opacity: 0.2; }
-        .cal-stats { margin-top: 16px; background: var(--glass); border-radius: var(--radius); padding: 16px; }
+        .day-number { font-size: 13px; font-weight: 600; color: var(--text-muted); }
+        .day-hijri { font-size: 7px; color: var(--text-dim); margin-top: 2px; }
+        .cal-day.today { background: var(--green); }
+        .cal-day.today .day-number { color: #000; font-weight: 900; }
+        .cal-day.friday:not(.today) { background: var(--green-dim); }
+        .cal-day.friday:not(.today) .day-number { color: var(--green); }
+        .cal-day.other-month .day-number { opacity: 0.2; }
+        .calendar-stats { background: var(--glass); border-radius: var(--radius); margin: 20px; padding: 14px; }
         .stats-row { display: flex; gap: 10px; }
-        .stat-item { flex: 1; text-align: center; background: rgba(255,255,255,0.03); border-radius: 10px; padding: 8px; }
-        .stat-num { font-size: 20px; font-weight: 700; color: var(--green); }
-        .stat-label { font-size: 9px; color: var(--text-dim); }
-
-        /* SETTINGS */
-        .settings-wrap { padding: 20px; display: flex; flex-direction: column; gap: 12px; }
-        .settings-section-title { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; padding-left: 4px; }
+        .stats-item { flex: 1; text-align: center; background: rgba(255,255,255,0.03); border-radius: 10px; padding: 8px; }
+        .stats-number { font-size: 20px; font-weight: 700; color: var(--green); }
+        .stats-label { font-size: 9px; color: var(--text-dim); }
+        
+        .settings-list { padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+        .section-title { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; padding-left: 4px; }
         .settings-card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); overflow: hidden; }
         .settings-item { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer; }
         .settings-item:last-child { border-bottom: none; }
@@ -150,29 +146,26 @@
         .version-card { background: var(--glass); border-radius: var(--radius-sm); padding: 16px; text-align: center; }
         .version-name { font-size: 14px; font-weight: 700; }
         .version-text { font-size: 10px; color: var(--text-muted); margin-top: 4px; }
-
-        /* BOTTOM NAV */
-        .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: rgba(10,10,15,0.95); backdrop-filter: blur(20px); border-top: 1px solid rgba(255,255,255,0.08); display: flex; z-index: 50; padding-bottom: env(safe-area-inset-bottom); }
+        
+        .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 500px; background: rgba(10,10,15,0.95); backdrop-filter: blur(20px); border-top: 1px solid rgba(255,255,255,0.08); display: flex; z-index: 50; padding-bottom: env(safe-area-inset-bottom); }
         .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8px 0; cursor: pointer; }
         .nav-icon { font-size: 20px; margin-bottom: 2px; }
         .nav-label { font-size: 9px; font-weight: 600; color: var(--text-dim); }
         .nav-item.active .nav-label { color: var(--green); }
-
-        /* MODAL */
-        .city-editor { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); z-index: 100; align-items: flex-end; }
-        .city-editor.open { display: flex; animation: slideUp 0.3s ease; }
+        
+        .city-modal, .notification-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); z-index: 100; display: none; align-items: flex-end; }
+        .city-modal.open, .notification-modal.open { display: flex; animation: slideUp 0.3s ease; }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-        .city-editor-inner { background: var(--bg2); border-radius: var(--radius) var(--radius) 0 0; width: 100%; max-width: 430px; margin: 0 auto; max-height: 75vh; overflow-y: auto; }
-        .city-editor-handle { width: 40px; height: 4px; background: rgba(255,255,255,0.15); border-radius: 2px; margin: 10px auto; }
-        .city-editor-title { font-size: 15px; font-weight: 700; padding: 0 16px 12px; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .country-list { padding: 12px; }
-        .country-item { padding: 10px 12px; border-radius: 10px; cursor: pointer; font-weight: 600; display: flex; justify-content: space-between; }
-        .country-item:active { background: var(--green-dim); color: var(--green); }
-        .city-list { padding: 8px 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-        .city-item { padding: 10px 12px; border-radius: 10px; cursor: pointer; text-align: center; background: rgba(255,255,255,0.04); }
-        .city-item:active { background: var(--green-dim); color: var(--green); }
-        .back-btn { padding: 10px 16px; color: var(--green); font-weight: 600; cursor: pointer; }
-
+        .modal-content { background: var(--bg2); border-radius: var(--radius) var(--radius) 0 0; width: 100%; max-width: 500px; margin: 0 auto; max-height: 80vh; overflow-y: auto; }
+        .modal-handle { width: 40px; height: 4px; background: rgba(255,255,255,0.15); border-radius: 2px; margin: 10px auto; }
+        .modal-title { font-size: 15px; font-weight: 700; padding: 0 16px 12px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .country-list, .city-list { padding: 12px; }
+        .country-item, .city-item { padding: 10px 12px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 14px; }
+        .country-item:active, .city-item:active { background: var(--green-dim); color: var(--green); }
+        .back-btn { padding: 10px 16px; color: var(--green); font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; }
+        .city-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px; }
+        .city-grid .city-item { text-align: center; background: rgba(255,255,255,0.04); }
+        
         .toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--green); color: #000; padding: 8px 18px; border-radius: 30px; font-size: 12px; font-weight: 700; opacity: 0; transition: all 0.3s; z-index: 200; pointer-events: none; }
         .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
     </style>
@@ -180,21 +173,20 @@
 <body>
 
 <div id="app">
-    <!-- PAGE 1: NAMOZ -->
+    <!-- Page 1: Namoz -->
     <div class="page active" id="page-namoz">
         <div class="page-header">
             <div class="header-city">
-                🕌 <span id="city-display">Toshkent</span>
+                🕌 <span id="city-name">Toshkent</span>
                 <div class="city-buttons">
-                    <button onclick="openCityEditor()">✎</button>
+                    <button onclick="openCityModal()">✎</button>
                     <button class="gps-btn" onclick="detectLocation()">📍</button>
                 </div>
             </div>
-            <div class="header-date" id="today-date">—</div>
+            <div class="header-date" id="gregorian-date">—</div>
             <div class="header-hijri" id="hijri-date">—</div>
         </div>
 
-        <!-- WEATHER CARD -->
         <div class="weather-card">
             <div class="weather-main">
                 <div class="weather-icon" id="weather-icon">☀️</div>
@@ -236,23 +228,23 @@
         </div>
     </div>
 
-    <!-- PAGE 2: QIBLA -->
+    <!-- Page 2: Qibla -->
     <div class="page" id="page-qibla">
         <div class="page-header">
-            <div class="header-city">🧭 Qibla Tomoni</div>
-            <div class="header-date" id="qibla-city-label">Toshkent</div>
+            <div class="header-city">🧭 Qibla yo'nalishi</div>
+            <div class="header-date" id="qibla-city">Toshkent</div>
         </div>
-        <div class="qibla-wrap">
-            <div class="qibla-info-row">
-                <div class="qibla-info-card">
-                    <div class="qibla-info-label">Qibla burchagi</div>
-                    <div class="qibla-info-value" id="qibla-angle">—°</div>
-                    <div class="qibla-info-dir" id="qibla-dir">—</div>
+        <div class="qibla-container">
+            <div class="qibla-stats">
+                <div class="stat-card">
+                    <div class="stat-label">Qibla burchagi</div>
+                    <div class="stat-value" id="qibla-angle">—°</div>
+                    <div class="stat-dir" id="qibla-dir">—</div>
                 </div>
-                <div class="qibla-info-card">
-                    <div class="qibla-info-label">Kompas</div>
-                    <div class="qibla-info-value" id="compass-heading">—°</div>
-                    <div class="qibla-info-dir" id="compass-dir-label">Shimol</div>
+                <div class="stat-card">
+                    <div class="stat-label">Kompas</div>
+                    <div class="stat-value" id="compass-value">—°</div>
+                    <div class="stat-dir" id="compass-dir">—</div>
                 </div>
             </div>
 
@@ -281,102 +273,147 @@
                 <div class="compass-center-dot"></div>
             </div>
 
-            <button class="permission-btn" id="permission-btn" onclick="requestCompassPermission()" style="display:none">📱 Kompas ruxsatini berish</button>
-            <div class="compass-status" id="compass-status"><div>Kompas ishga tushirilmoqda...</div></div>
+            <button class="permission-btn" id="permission-btn" style="display: none;" onclick="requestCompassPermission()">
+                📱 Kompas ruxsatini berish
+            </button>
+
+            <div class="compass-status" id="compass-status">
+                <span>Kompas ishga tushmoqda...</span>
+            </div>
         </div>
     </div>
 
-    <!-- PAGE 3: CALENDAR -->
+    <!-- Page 3: Calendar -->
     <div class="page" id="page-taqvim">
         <div class="page-header">
             <div class="header-city">📅 Hijriy taqvim</div>
         </div>
-        <div class="calendar-wrap">
-            <div class="cal-header">
-                <button class="cal-nav" onclick="changeMonth(-1)">‹</button>
-                <div class="cal-month" id="cal-month-label"></div>
-                <button class="cal-nav" onclick="changeMonth(1)">›</button>
-            </div>
-            <div class="cal-grid" id="cal-grid">
-                <div class="cal-dow">Du</div><div class="cal-dow">Se</div><div class="cal-dow">Ch</div>
-                <div class="cal-dow">Pa</div><div class="cal-dow friday">Ju</div><div class="cal-dow">Sh</div><div class="cal-dow">Ya</div>
-            </div>
-            <div class="cal-stats">
-                <div class="stats-row">
-                    <div class="stat-item"><div class="stat-num" id="stat-juma">0</div><div class="stat-label">Juma</div></div>
-                    <div class="stat-item"><div class="stat-num">6</div><div class="stat-label">Namoz</div></div>
-                    <div class="stat-item"><div class="stat-num" id="stat-days">30</div><div class="stat-label">Kun</div></div>
-                </div>
+        <div class="calendar-header">
+            <button class="month-nav" onclick="changeMonth(-1)">‹</button>
+            <div class="month-label" id="month-label"></div>
+            <button class="month-nav" onclick="changeMonth(1)">›</button>
+        </div>
+        <div class="calendar-grid" id="calendar-grid">
+            <div class="cal-dow">Du</div><div class="cal-dow">Se</div><div class="cal-dow">Ch</div>
+            <div class="cal-dow">Pa</div><div class="cal-dow friday">Ju</div><div class="cal-dow">Sh</div><div class="cal-dow">Ya</div>
+        </div>
+        <div class="calendar-stats">
+            <div class="stats-row">
+                <div class="stats-item"><div class="stats-number" id="friday-count">0</div><div class="stats-label">Juma</div></div>
+                <div class="stats-item"><div class="stats-number">6</div><div class="stats-label">Namoz</div></div>
+                <div class="stats-item"><div class="stats-number" id="days-count">30</div><div class="stats-label">Kun</div></div>
             </div>
         </div>
     </div>
 
-    <!-- PAGE 4: SETTINGS -->
+    <!-- Page 4: Settings -->
     <div class="page" id="page-settings">
         <div class="page-header">
             <div class="header-city">⚙️ Sozlamalar</div>
         </div>
-        <div class="settings-wrap">
-            <div class="settings-section-title">Manzil</div>
-            <div class="settings-card">
-                <div class="settings-item" onclick="openCityEditor()">
-                    <div class="settings-icon">📍</div>
-                    <div class="settings-info">
-                        <div class="settings-label">Shahar</div>
-                        <div class="settings-sub" id="settings-city-label">Toshkent</div>
+        <div class="settings-list">
+            <div>
+                <div class="section-title">Manzil</div>
+                <div class="settings-card">
+                    <div class="settings-item" onclick="openCityModal()">
+                        <div class="settings-icon">📍</div>
+                        <div class="settings-info">
+                            <div class="settings-label">Shahar</div>
+                            <div class="settings-sub" id="settings-city">Toshkent</div>
+                        </div>
+                        <div style="color: var(--text-muted);">›</div>
                     </div>
-                    <div style="color: var(--text-muted);">›</div>
+                    <div class="settings-item" onclick="detectLocation()">
+                        <div class="settings-icon">📡</div>
+                        <div class="settings-info">
+                            <div class="settings-label">Avtomatik aniqlash</div>
+                            <div class="settings-sub">GPS orqali shaharni topish</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="settings-item" onclick="detectLocation()">
-                    <div class="settings-icon">📡</div>
-                    <div class="settings-info">
-                        <div class="settings-label">Avtomatik aniqlash</div>
-                        <div class="settings-sub">GPS orqali shaharni topish</div>
+            </div>
+            <div>
+                <div class="section-title">Bildirishnomalar</div>
+                <div class="settings-card">
+                    <div class="settings-item" onclick="toggleNotification('prayer')">
+                        <div class="settings-icon">🔔</div>
+                        <div class="settings-info">
+                            <div class="settings-label">Namoz vaqtlari</div>
+                            <div class="settings-sub">Har namozda eslatma</div>
+                        </div>
+                        <div class="toggle on" id="prayer-notif-toggle"></div>
+                    </div>
+                    <div class="settings-item" onclick="showNotificationSettings()">
+                        <div class="settings-icon">⏰</div>
+                        <div class="settings-info">
+                            <div class="settings-label">Oldindan ogohlantirish</div>
+                            <div class="settings-sub" id="early-notif-text">10 daqiqa oldin</div>
+                        </div>
+                        <div style="color: var(--text-muted);">›</div>
                     </div>
                 </div>
             </div>
-            <div class="settings-section-title">Bildirishnomalar</div>
-            <div class="settings-card">
-                <div class="settings-item" onclick="toggleNotification('prayer')">
-                    <div class="settings-icon">🔔</div>
-                    <div class="settings-info">
-                        <div class="settings-label">Namoz vaqtlari</div>
-                        <div class="settings-sub">Har namozda eslatma</div>
+            <div>
+                <div class="section-title">Ulashish</div>
+                <div class="settings-card">
+                    <div class="settings-item" onclick="shareApp()">
+                        <div class="settings-icon">📤</div>
+                        <div class="settings-info">
+                            <div class="settings-label">Do'stlarga ulashish</div>
+                            <div class="settings-sub">Telegram orqali</div>
+                        </div>
+                        <div style="color: var(--text-muted);">›</div>
                     </div>
-                    <div class="toggle on" id="prayer-notif-toggle"></div>
-                </div>
-            </div>
-            <div class="settings-section-title">Ulashish</div>
-            <div class="settings-card">
-                <div class="settings-item" onclick="shareApp()">
-                    <div class="settings-icon">📤</div>
-                    <div class="settings-info">
-                        <div class="settings-label">Do'stlarga ulashish</div>
-                        <div class="settings-sub">Telegram orqali</div>
-                    </div>
-                    <div style="color: var(--text-muted);">›</div>
                 </div>
             </div>
             <div class="version-card">
                 <div class="version-name">🕌 Namoz Vaqtlari</div>
                 <div class="version-text">v2.1.0 • Ob-havo • Qibla • Taqvim</div>
+                <div class="version-text" style="margin-top: 4px;">📡 namozvaqti.uz + OpenWeatherMap</div>
             </div>
         </div>
     </div>
 
     <nav class="bottom-nav">
-        <div class="nav-item active" onclick="switchPage('namoz', this)"><div class="nav-icon">🕌</div><div class="nav-label">Namoz</div></div>
-        <div class="nav-item" onclick="switchPage('qibla', this)"><div class="nav-icon">🧭</div><div class="nav-label">Qibla</div></div>
-        <div class="nav-item" onclick="switchPage('taqvim', this)"><div class="nav-icon">📅</div><div class="nav-label">Taqvim</div></div>
-        <div class="nav-item" onclick="switchPage('settings', this)"><div class="nav-icon">⚙️</div><div class="nav-label">Sozlamalar</div></div>
+        <div class="nav-item active" onclick="switchPage('namoz', this)">
+            <div class="nav-icon">🕌</div>
+            <div class="nav-label">Namoz</div>
+        </div>
+        <div class="nav-item" onclick="switchPage('qibla', this)">
+            <div class="nav-icon">🧭</div>
+            <div class="nav-label">Qibla</div>
+        </div>
+        <div class="nav-item" onclick="switchPage('taqvim', this)">
+            <div class="nav-icon">📅</div>
+            <div class="nav-label">Taqvim</div>
+        </div>
+        <div class="nav-item" onclick="switchPage('settings', this)">
+            <div class="nav-icon">⚙️</div>
+            <div class="nav-label">Sozlamalar</div>
+        </div>
     </nav>
 </div>
 
-<div class="city-editor" id="city-editor" onclick="closeCityEditorIfOutside(event)">
-    <div class="city-editor-inner">
-        <div class="city-editor-handle"></div>
-        <div class="city-editor-title" id="editor-title">🌍 Mamlakatni tanlang</div>
-        <div id="editor-body"></div>
+<div class="city-modal" id="city-modal" onclick="closeModalOnOutside(event)">
+    <div class="modal-content">
+        <div class="modal-handle"></div>
+        <div class="modal-title" id="modal-title">🌍 Mamlakatni tanlang</div>
+        <div id="modal-body"></div>
+    </div>
+</div>
+
+<div class="notification-modal" id="notif-modal" onclick="closeNotifModalOnOutside(event)">
+    <div class="modal-content">
+        <div class="modal-handle"></div>
+        <div class="modal-title">⏰ Ogohlantirish vaqti</div>
+        <div class="city-list" style="padding: 12px;">
+            <div class="city-item" onclick="setEarlyNotification(5)">5 daqiqa oldin</div>
+            <div class="city-item" onclick="setEarlyNotification(10)">10 daqiqa oldin</div>
+            <div class="city-item" onclick="setEarlyNotification(15)">15 daqiqa oldin</div>
+            <div class="city-item" onclick="setEarlyNotification(20)">20 daqiqa oldin</div>
+            <div class="city-item" onclick="setEarlyNotification(30)">30 daqiqa oldin</div>
+            <div class="city-item" onclick="closeNotifModal()">❌ Bekor qilish</div>
+        </div>
     </div>
 </div>
 
@@ -386,185 +423,765 @@
 let tg;
 try { tg = window.Telegram.WebApp; tg.ready(); tg.expand(); } catch(e) { tg = { initDataUnsafe: {}, switchInlineQuery: () => {}, showPopup: () => {} }; }
 
-// DATA
+// ============= DATA =============
 const COUNTRIES = {
-    uz: { name: "🇺🇿 O'zbekiston", api: "Uzbekistan" },
-    ru: { name: "🇷🇺 Rossiya", api: "Russia" },
-    kz: { name: "🇰🇿 Qozog'iston", api: "Kazakhstan" },
-    tr: { name: "🇹🇷 Turkiya", api: "Turkey" },
-    ae: { name: "🇦🇪 BAA", api: "UAE" },
-    de: { name: "🇩🇪 Germaniya", api: "Germany" },
-    us: { name: "🇺🇸 AQSH", api: "United States" },
-    gb: { name: "🇬🇧 Buyuk Britaniya", api: "United Kingdom" }
+    uz: { name: "🇺🇿 O'zbekiston", api: "Uzbekistan", code: "uz" },
+    ru: { name: "🇷🇺 Rossiya", api: "Russia", code: "ru" },
+    kz: { name: "🇰🇿 Qozog'iston", api: "Kazakhstan", code: "kz" },
+    tr: { name: "🇹🇷 Turkiya", api: "Turkey", code: "tr" },
+    ae: { name: "🇦🇪 BAA", api: "UAE", code: "ae" },
+    de: { name: "🇩🇪 Germaniya", api: "Germany", code: "de" },
+    us: { name: "🇺🇸 AQSH", api: "United States", code: "us" },
+    gb: { name: "🇬🇧 Buyuk Britaniya", api: "United Kingdom", code: "gb" }
 };
 
 const CITIES = {
-    uz: ["Toshkent","Samarqand","Buxoro","Namangan","Andijon","Farg'ona","Qo'qon","Nukus","Termiz","Qarshi","Jizzax","Navoiy","Urganch","Xiva","Shahrisabz","Guliston"],
-    ru: ["Moskva","Sankt-Peterburg","Kazan","Ufa","Novosibirsk","Yekaterinburg"],
-    kz: ["Olmaota","Astana","Shymkent","Qarag'anda"],
-    tr: ["Istanbul","Anqara","Izmir","Bursa","Antalya"],
-    ae: ["Dubay","Abu-Dabi","Sharjah"],
-    de: ["Berlin","Myunxen","Frankfurt","Gamburg","Kyoln"],
-    us: ["Nyu-York","Los-Anjeles","Chikago","Xouston"],
-    gb: ["London","Manchester","Birmingham","Liverpool"]
-};
-
-const CITY_API = {
-    "Toshkent":"Tashkent","Samarqand":"Samarkand","Buxoro":"Bukhara","Namangan":"Namangan","Andijon":"Andijan","Farg'ona":"Fergana","Qo'qon":"Kokand","Nukus":"Nukus","Termiz":"Termez","Qarshi":"Karshi","Jizzax":"Jizzakh","Navoiy":"Navoi","Urganch":"Urgench","Xiva":"Khiva","Shahrisabz":"Shakhrisabz","Guliston":"Gulistan"
+    uz: ["Toshkent", "Samarqand", "Buxoro", "Farg'ona", "Andijon", "Namangan", "Qo'qon", "Nukus", "Termiz", "Qarshi", "Navoiy", "Jizzax", "Urganch", "Xiva", "Shahrisabz", "Guliston"],
+    ru: ["Moskva", "Sankt-Peterburg", "Kazan", "Ufa", "Novosibirsk", "Yekaterinburg"],
+    kz: ["Olmaota", "Astana", "Shymkent", "Qarag'anda"],
+    tr: ["Istanbul", "Anqara", "Izmir", "Bursa", "Antalya"],
+    ae: ["Dubay", "Abu-Dabi", "Sharjah"],
+    de: ["Berlin", "Myunxen", "Frankfurt", "Gamburg", "Kyoln"],
+    us: ["Nyu-York", "Los-Anjeles", "Chikago", "Xouston"],
+    gb: ["London", "Manchester", "Birmingham", "Liverpool"]
 };
 
 const PRAYERS = [
-    { key:"Fajr", icon:"🌅", name:"Bomdod", arabic:"الفجر" },
-    { key:"Sunrise", icon:"🌄", name:"Quyosh", arabic:"الشروق" },
-    { key:"Dhuhr", icon:"☀️", name:"Peshin", arabic:"الظهر" },
-    { key:"Asr", icon:"🌇", name:"Asr", arabic:"العصر" },
-    { key:"Maghrib", icon:"🌆", name:"Shom", arabic:"المغرب" },
-    { key:"Isha", icon:"🌙", name:"Xufton", arabic:"العشاء" }
+    { key: "Fajr", icon: "🌅", name: "Bomdod", arabic: "الفجر" },
+    { key: "Sunrise", icon: "🌄", name: "Quyosh", arabic: "الشروق" },
+    { key: "Dhuhr", icon: "☀️", name: "Peshin", arabic: "الظهر" },
+    { key: "Asr", icon: "🌇", name: "Asr", arabic: "العصر" },
+    { key: "Maghrib", icon: "🌆", name: "Shom", arabic: "المغرب" },
+    { key: "Isha", icon: "🌙", name: "Xufton", arabic: "العشاء" }
 ];
 
-const HIJRI_MONTHS = ["Muharram","Safar","Rabi ul-avval","Rabi ul-oxir","Jumad ul-avval","Jumad ul-oxir","Rajab","Sha'bon","Ramazon","Shavvol","Zul-qa'da","Zul-hijja"];
-const WEEKDAYS_UZ = { Monday:"Dushanba",Tuesday:"Seshanba",Wednesday:"Chorshanba",Thursday:"Payshanba",Friday:"Juma",Saturday:"Shanba",Sunday:"Yakshanba" };
-const MONTHS_UZ = ["Yanvar","Fevral","Mart","Aprel","May","Iyun","Iyul","Avgust","Sentabr","Oktabr","Noyabr","Dekabr"];
+const HIJRI_MONTHS = ["Muharram", "Safar", "Rabi ul-avval", "Rabi ul-oxir", "Jumad ul-avval", "Jumad ul-oxir", "Rajab", "Sha'bon", "Ramazon", "Shavvol", "Zul-qa'da", "Zul-hijja"];
+const MONTHS_UZ = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"];
+const WEEKDAYS_UZ = { Monday: "Dushanba", Tuesday: "Seshanba", Wednesday: "Chorshanba", Thursday: "Payshanba", Friday: "Juma", Saturday: "Shanba", Sunday: "Yakshanba" };
 
-// STATE
+// ============= STATE =============
 let state = {
-    city: "Toshkent", country: "Uzbekistan", countryCode: "uz", countryName: "O'zbekiston",
-    timings: null, lat: 41.2995, lon: 69.2401, qiblaAngle: 0, countdownInterval: null,
-    compassActive: false, currentHeading: 0, calYear: new Date().getFullYear(), calMonth: new Date().getMonth(),
-    notifications: { prayer: true }
+    city: "Toshkent",
+    country: "Uzbekistan",
+    countryCode: "uz",
+    timings: null,
+    lat: 41.2995,
+    lon: 69.2401,
+    qiblaAngle: 0,
+    countdownInterval: null,
+    compassActive: false,
+    currentHeading: 0,
+    calYear: new Date().getFullYear(),
+    calMonth: new Date().getMonth(),
+    notifications: {
+        prayer: true,
+        earlyMinutes: 10
+    }
 };
 
-try { const saved = JSON.parse(localStorage.getItem('namoz_state') || '{}'); if (saved.city) Object.assign(state, saved); } catch(e) {}
-function saveState() { localStorage.setItem('namoz_state', JSON.stringify({ city: state.city, country: state.country, countryCode: state.countryCode, countryName: state.countryName, notifications: state.notifications })); }
+try {
+    const saved = localStorage.getItem('namoz_state_v2');
+    if (saved) {
+        const data = JSON.parse(saved);
+        if (data.city) state.city = data.city;
+        if (data.country) state.country = data.country;
+        if (data.countryCode) state.countryCode = data.countryCode;
+        if (data.notifications) state.notifications = data.notifications;
+    }
+} catch(e) {}
 
-function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }
-function switchPage(id, navEl) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active')); document.getElementById('page-'+id).classList.add('active'); navEl.classList.add('active'); if (id === 'qibla') initQibla(); if (id === 'taqvim') renderCalendar(); }
+function saveState() {
+    localStorage.setItem('namoz_state_v2', JSON.stringify({
+        city: state.city,
+        country: state.country,
+        countryCode: state.countryCode,
+        notifications: state.notifications
+    }));
+}
+
+function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+function formatTime(timeStr) {
+    return timeStr ? timeStr.slice(0, 5) : "--:--";
+}
 
 // ============= WEATHER =============
 async function loadWeather() {
     const city = state.city;
-    const cityMap = { "Toshkent":"Tashkent","Samarqand":"Samarkand","Buxoro":"Bukhara","Farg'ona":"Fergana","Andijon":"Andijan","Namangan":"Namangan","Qo'qon":"Kokand","Nukus":"Nukus","Termiz":"Termez","Qarshi":"Karshi","Navoiy":"Navoi","Jizzax":"Jizzakh","Urganch":"Urgench","Xiva":"Khiva","Shahrisabz":"Shakhrisabz","Guliston":"Gulistan" };
+    const apiKey = "efb115be96afc08d932177c80778a194";
+    const cityMap = {
+        "Toshkent": "Tashkent", "Samarqand": "Samarkand", "Buxoro": "Bukhara",
+        "Farg'ona": "Fergana", "Andijon": "Andijan", "Namangan": "Namangan",
+        "Qo'qon": "Kokand", "Nukus": "Nukus", "Termiz": "Termez",
+        "Qarshi": "Karshi", "Navoiy": "Navoi", "Jizzax": "Jizzakh",
+        "Urganch": "Urgench", "Xiva": "Khiva", "Shahrisabz": "Shakhrisabz", "Guliston": "Gulistan"
+    };
     const englishCity = cityMap[city] || city;
-    const apiKey = "efb115be96afc08d932177c80778a194"; // O'zingizning API kalitingizni yozing
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${englishCity},UZ&appid=${apiKey}&units=metric&lang=uz`;
     
     try {
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=${englishCity},UZ&appid=${apiKey}&units=metric&lang=uz`;
         const res = await fetch(url);
         const data = await res.json();
         if (data.cod === 200) {
-            document.getElementById('weather-icon').textContent = data.weather[0].icon.includes("01") ? "☀️" : data.weather[0].icon.includes("02") ? "⛅" : data.weather[0].icon.includes("03")||data.weather[0].icon.includes("04") ? "☁️" : data.weather[0].icon.includes("09")||data.weather[0].icon.includes("10") ? "🌧️" : data.weather[0].icon.includes("11") ? "⛈️" : data.weather[0].icon.includes("13") ? "❄️" : "🌡️";
-            document.getElementById('weather-temp').textContent = `${Math.round(data.main.temp)}°C`;
-            document.getElementById('weather-desc').textContent = data.weather[0].description;
-            document.getElementById('weather-details').innerHTML = `<span>💧 ${data.main.humidity}%</span><span>🌬️ ${data.wind.speed} m/s</span>`;
-        } else { useDemoWeather(); }
-    } catch(e) { useDemoWeather(); }
+            const temp = Math.round(data.main.temp);
+            const humidity = data.main.humidity;
+            const wind = data.wind.speed;
+            const desc = data.weather[0].description;
+            const iconCode = data.weather[0].icon;
+            let icon = "🌡️";
+            if (iconCode.includes("01")) icon = "☀️";
+            else if (iconCode.includes("02")) icon = "⛅";
+            else if (iconCode.includes("03") || iconCode.includes("04")) icon = "☁️";
+            else if (iconCode.includes("09") || iconCode.includes("10")) icon = "🌧️";
+            else if (iconCode.includes("11")) icon = "⛈️";
+            else if (iconCode.includes("13")) icon = "❄️";
+            else if (iconCode.includes("50")) icon = "🌫️";
+            
+            document.getElementById('weather-icon').textContent = icon;
+            document.getElementById('weather-temp').textContent = `${temp}°C`;
+            document.getElementById('weather-desc').textContent = desc;
+            document.getElementById('weather-details').innerHTML = `<span>💧 ${humidity}%</span><span>🌬️ ${wind} m/s</span>`;
+        } else {
+            useDemoWeather();
+        }
+    } catch(e) {
+        useDemoWeather();
+    }
 }
-function useDemoWeather() { document.getElementById('weather-icon').textContent = "🌡️"; document.getElementById('weather-temp').textContent = "--°C"; document.getElementById('weather-desc').textContent = "Ob-havo ma'lumoti"; document.getElementById('weather-details').innerHTML = `<span>💧 --%</span><span>🌬️ -- m/s</span>`; }
+
+function useDemoWeather() {
+    document.getElementById('weather-icon').textContent = "🌡️";
+    document.getElementById('weather-temp').textContent = "--°C";
+    document.getElementById('weather-desc').textContent = "Ob-havo ma'lumoti";
+    document.getElementById('weather-details').innerHTML = `<span>💧 --%</span><span>🌬️ -- m/s</span>`;
+}
 
 // ============= GPS LOCATION =============
 function detectLocation() {
     showToast("📍 Joylashuv aniqlanmoqda...");
-    if (!navigator.geolocation) { showToast("❌ GPS qo'llab-quvvatlanmaydi"); return; }
-    navigator.geolocation.getCurrentPosition(async (position) => {
-        const lat = position.coords.latitude, lon = position.coords.longitude;
-        try {
-            const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&accept-language=uz`);
-            const data = await res.json();
-            let detectedCity = data.address?.city || data.address?.town || data.address?.village;
-            if (detectedCity && (data.address?.country === "Oʻzbekiston" || data.address?.country === "Uzbekistan")) {
-                const matchingCity = CITIES.uz.find(c => c.toLowerCase() === detectedCity.toLowerCase() || detectedCity.toLowerCase().includes(c.toLowerCase()));
-                if (matchingCity) { state.city = matchingCity; state.country = "Uzbekistan"; state.countryCode = "uz"; saveState(); showToast(`📍 ${matchingCity} aniqlandi`); loadPrayerTimes(); loadWeather(); updateQiblaUI(); }
-                else { showToast(`📍 ${detectedCity} topildi, lekin ro'yxatda yo'q`); }
-            } else { showToast("❌ Faqat O'zbekiston shaharlari qo'llab-quvvatlanadi"); }
-        } catch(e) { showToast("❌ Shahar aniqlanmadi"); }
-    }, (error) => { showToast(error.code === 1 ? "❌ Joylashuv ruxsati berilmagan" : "❌ Joylashuv aniqlanmadi"); });
+    if (!navigator.geolocation) {
+        showToast("❌ GPS qo'llab-quvvatlanmaydi");
+        return;
+    }
+    
+    navigator.geolocation.getCurrentPosition(
+        async (position) => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            showToast("🔄 Shahar aniqlanmoqda...");
+            
+            try {
+                const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&accept-language=uz`);
+                const data = await res.json();
+                let detectedCity = data.address?.city || data.address?.town || data.address?.village;
+                let detectedCountry = data.address?.country;
+                
+                if (detectedCity && (detectedCountry === "Oʻzbekiston" || detectedCountry === "Uzbekistan")) {
+                    const matchingCity = CITIES.uz.find(c => c.toLowerCase() === detectedCity.toLowerCase() || detectedCity.toLowerCase().includes(c.toLowerCase()));
+                    if (matchingCity) {
+                        state.city = matchingCity;
+                        state.country = "Uzbekistan";
+                        state.countryCode = "uz";
+                        saveState();
+                        showToast(`📍 ${matchingCity} aniqlandi`);
+                        loadPrayerTimes();
+                        loadWeather();
+                        updateQiblaUI();
+                    } else {
+                        showToast(`📍 ${detectedCity} topildi, lekin ro'yxatda yo'q`);
+                    }
+                } else {
+                    showToast("❌ Faqat O'zbekiston shaharlari qo'llab-quvvatlanadi");
+                }
+            } catch(e) {
+                showToast("❌ Shahar aniqlanmadi");
+            }
+        },
+        (error) => {
+            if (error.code === 1) {
+                showToast("❌ Joylashuv ruxsati berilmagan");
+            } else {
+                showToast("❌ Joylashuv aniqlanmadi");
+            }
+        }
+    );
 }
 
-// ============= PRAYER TIMES =============
+// ============= PRAYER TIMES (namozvaqti.uz API) =============
 async function loadPrayerTimes() {
     document.getElementById('namoz-loading').style.display = 'block';
     document.getElementById('namoz-content').style.display = 'none';
-    document.getElementById('city-display').textContent = state.city;
-    document.getElementById('qibla-city-label').textContent = state.city;
-    document.getElementById('settings-city-label').textContent = state.city;
-    const cacheKey = `prayer_${state.city}`;
+    document.getElementById('city-name').textContent = state.city;
+    document.getElementById('qibla-city').textContent = state.city;
+    document.getElementById('settings-city').textContent = state.city;
+    
+    const cacheKey = `prayer_${state.city}_${state.country}`;
     const now = Date.now();
-    try { const cached = JSON.parse(localStorage.getItem(cacheKey) || 'null'); if (cached && (now - cached.ts) < 3600000) { renderPrayerTimes(cached.data); return; } } catch(e) {}
-    const apiCity = CITY_API[state.city] || state.city;
-    const url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(apiCity)}&country=${encodeURIComponent(state.country)}&method=3`;
+    
     try {
-        const res = await fetch(url);
-        const json = await res.json();
-        if (json.code === 200 && json.data) { localStorage.setItem(cacheKey, JSON.stringify({ data: json.data, ts: now })); renderPrayerTimes(json.data); }
-        else { renderDemoData(); }
-    } catch(e) { renderDemoData(); }
-}
-
-function renderDemoData() { renderPrayerTimes({ timings: { Fajr:"04:30",Sunrise:"06:00",Dhuhr:"13:00",Asr:"17:30",Maghrib:"20:15",Isha:"21:45" }, date: { gregorian: { weekday: { en:"Tuesday" }, date:"27-05-2025" }, hijri: { day:"28", month:{ number:"11" }, year:"1446" } }, meta: { latitude:41.2995, longitude:69.2401 } }); }
-
-function renderPrayerTimes(data) {
-    state.timings = data.timings;
-    if (data.meta) { state.lat = parseFloat(data.meta.latitude) || state.lat; state.lon = parseFloat(data.meta.longitude) || state.lon; state.qiblaAngle = calcQibla(state.lat, state.lon); }
-    const greg = data.date?.gregorian || {}; const hijri = data.date?.hijri || {};
-    document.getElementById('today-date').textContent = `${WEEKDAYS_UZ[greg.weekday?.en] || ''}, ${greg.date || ''}`;
-    document.getElementById('hijri-date').textContent = `🌙 ${hijri.day || ''} ${HIJRI_MONTHS[(parseInt(hijri.month?.number)||1)-1] || ''} ${hijri.year || ''} h.`;
-    const now = new Date(); const currentMins = now.getHours()*60 + now.getMinutes();
-    const prayerMins = PRAYERS.map(p => { const t = (state.timings[p.key] || '00:00').slice(0,5); const [h,m] = t.split(':').map(Number); return h*60+m; });
-    let nextIdx = -1; for (let i=0; i<prayerMins.length; i++) { if (prayerMins[i] > currentMins) { nextIdx = i; break; } }
-    if (nextIdx === -1) nextIdx = 0;
-    const listEl = document.getElementById('prayer-list'); listEl.innerHTML = '';
-    PRAYERS.forEach((p, i) => { const t = (state.timings[p.key] || '').slice(0,5); const isActive = i === nextIdx; const isDone = nextIdx > 0 ? i < nextIdx : false; const card = document.createElement('div'); card.className = `prayer-card ${isActive ? 'active' : ''} ${isDone ? 'done' : ''}`; card.innerHTML = `${isActive ? '<div class="active-badge">KEYINGI</div>' : ''}<div class="prayer-icon">${p.icon}</div><div class="prayer-info"><div class="prayer-name">${p.name}</div><div class="prayer-name-ar">${p.arabic}</div></div><div class="prayer-time">${t}</div>`; listEl.appendChild(card); });
-    startCountdown(nextIdx, prayerMins);
-    document.getElementById('namoz-loading').style.display = 'none'; document.getElementById('namoz-content').style.display = 'block';
+        const cached = localStorage.getItem(cacheKey);
+        if (cached) {
+            const data = JSON.parse(cached);
+            if (now - data.timestamp < 3600000) {
+                renderPrayerTimes(data.timings, data.date);
+                loadWeather();
+                return;
+            }
+        }
+    } catch(e) {}
+    
+    let success = await fetchFromNamozVaqtiUz();
+    if (!success) await fetchFromAladhan();
     loadWeather();
 }
 
-function startCountdown(nextIdx, prayerMins) {
-    if (state.countdownInterval) clearInterval(state.countdownInterval);
-    function update() {
-        const now = new Date(); let currentSecs = now.getHours()*3600 + now.getMinutes()*60 + now.getSeconds();
-        let targetSecs = prayerMins[nextIdx] * 60; if (targetSecs <= currentSecs) targetSecs += 86400;
-        let diff = targetSecs - currentSecs; const h = Math.floor(diff/3600), m = Math.floor((diff%3600)/60), s = diff%60;
-        document.getElementById('countdown').textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-        document.getElementById('next-prayer').textContent = `${PRAYERS[nextIdx].icon} ${PRAYERS[nextIdx].name}`;
+async function fetchFromNamozVaqtiUz() {
+    try {
+        const url = `https://namozvaqti.uz/api/prayer-times?city=${encodeURIComponent(state.city)}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        
+        if (data.success && data.times) {
+            const timings = {
+                Fajr: data.times.bomdod,
+                Sunrise: data.times.quyosh,
+                Dhuhr: data.times.peshin,
+                Asr: data.times.asr,
+                Maghrib: data.times.shom,
+                Isha: data.times.xufton
+            };
+            
+            const dateData = {
+                gregorian: { date: data.date, weekday: { en: data.weekday } },
+                hijri: { day: data.hijri_day, month: { number: data.hijri_month_num }, year: data.hijri_year }
+            };
+            
+            renderPrayerTimes(timings, dateData);
+            cachePrayerTimes(timings, dateData);
+            return true;
+        }
+    } catch(e) {
+        console.log("namozvaqti.uz error:", e);
     }
-    update(); state.countdownInterval = setInterval(update, 1000);
+    return false;
+}
+
+async function fetchFromAladhan() {
+    const cityMap = {
+        "Toshkent": "Tashkent", "Samarqand": "Samarkand", "Buxoro": "Bukhara",
+        "Farg'ona": "Fergana", "Andijon": "Andijan", "Namangan": "Namangan",
+        "Qo'qon": "Kokand", "Nukus": "Nukus", "Termiz": "Termez",
+        "Qarshi": "Karshi", "Navoiy": "Navoi", "Jizzax": "Jizzakh",
+        "Urganch": "Urgench", "Xiva": "Khiva", "Shahrisabz": "Shakhrisabz", "Guliston": "Gulistan"
+    };
+    
+    const apiCity = cityMap[state.city] || state.city;
+    const url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(apiCity)}&country=${encodeURIComponent(state.country)}&method=2`;
+    
+    try {
+        const res = await fetch(url);
+        const json = await res.json();
+        
+        if (json.code === 200 && json.data) {
+            renderPrayerTimes(json.data.timings, json.data.date);
+            cachePrayerTimes(json.data.timings, json.data.date);
+            
+            if (json.data.meta) {
+                state.lat = parseFloat(json.data.meta.latitude) || state.lat;
+                state.lon = parseFloat(json.data.meta.longitude) || state.lon;
+                state.qiblaAngle = calculateQibla(state.lat, state.lon);
+            }
+        } else {
+            useDemoData();
+        }
+    } catch(e) {
+        useDemoData();
+    }
+}
+
+function cachePrayerTimes(timings, date) {
+    const cacheKey = `prayer_${state.city}_${state.country}`;
+    localStorage.setItem(cacheKey, JSON.stringify({
+        timings: timings,
+        date: date,
+        timestamp: Date.now()
+    }));
+}
+
+function useDemoData() {
+    const demoTimings = {
+        Fajr: "04:30", Sunrise: "06:00", Dhuhr: "13:00",
+        Asr: "17:30", Maghrib: "20:15", Isha: "21:45"
+    };
+    const demoDate = {
+        gregorian: { date: "27-05-2025", weekday: { en: "Tuesday" } },
+        hijri: { day: "28", month: { number: "11" }, year: "1446" }
+    };
+    renderPrayerTimes(demoTimings, demoDate);
+}
+
+function renderPrayerTimes(timings, dateData) {
+    state.timings = timings;
+    
+    const greg = dateData.gregorian || {};
+    const hijri = dateData.hijri || {};
+    const weekday = WEEKDAYS_UZ[greg.weekday?.en] || "";
+    const gregDate = greg.date || "";
+    document.getElementById('gregorian-date').textContent = `${weekday}, ${gregDate}`;
+    
+    const hDay = hijri.day || "";
+    const hMonth = HIJRI_MONTHS[(parseInt(hijri.month?.number) || 1) - 1] || "";
+    const hYear = hijri.year || "";
+    document.getElementById('hijri-date').textContent = `🌙 ${hDay} ${hMonth} ${hYear} h.`;
+    
+    const now = new Date();
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+    
+    const prayerMinutes = PRAYERS.map(p => {
+        const t = timings[p.key] || "00:00";
+        const [h, m] = t.slice(0, 5).split(":").map(Number);
+        return h * 60 + m;
+    });
+    
+    let nextIndex = -1;
+    for (let i = 0; i < prayerMinutes.length; i++) {
+        if (prayerMinutes[i] > currentMinutes) {
+            nextIndex = i;
+            break;
+        }
+    }
+    if (nextIndex === -1) nextIndex = 0;
+    
+    const listEl = document.getElementById('prayer-list');
+    listEl.innerHTML = "";
+    
+    PRAYERS.forEach((prayer, i) => {
+        const time = formatTime(timings[prayer.key]);
+        const isActive = i === nextIndex;
+        const isDone = nextIndex > 0 ? i < nextIndex : false;
+        
+        const card = document.createElement('div');
+        card.className = `prayer-card ${isActive ? 'active' : ''} ${isDone ? 'done' : ''}`;
+        card.style.position = 'relative';
+        
+        card.innerHTML = `
+            ${isActive ? '<div class="active-badge">KEYINGI</div>' : ''}
+            <div class="prayer-icon">${prayer.icon}</div>
+            <div class="prayer-info">
+                <div class="prayer-name">${prayer.name}</div>
+                <div class="prayer-name-ar">${prayer.arabic}</div>
+            </div>
+            <div class="prayer-time">${time}</div>
+        `;
+        listEl.appendChild(card);
+    });
+    
+    startCountdown(nextIndex, prayerMinutes);
+    scheduleNotifications(prayerMinutes, nextIndex);
+    
+    document.getElementById('namoz-loading').style.display = 'none';
+    document.getElementById('namoz-content').style.display = 'block';
+}
+
+function startCountdown(nextIndex, prayerMinutes) {
+    if (state.countdownInterval) clearInterval(state.countdownInterval);
+    
+    function update() {
+        const now = new Date();
+        let currentSeconds = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+        let targetSeconds = prayerMinutes[nextIndex] * 60;
+        
+        if (targetSeconds <= currentSeconds) {
+            targetSeconds += 86400;
+        }
+        
+        let diff = targetSeconds - currentSeconds;
+        const hours = Math.floor(diff / 3600);
+        const minutes = Math.floor((diff % 3600) / 60);
+        const seconds = diff % 60;
+        
+        document.getElementById('countdown').textContent = 
+            `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        document.getElementById('next-prayer').textContent = 
+            `${PRAYERS[nextIndex].icon} ${PRAYERS[nextIndex].name}`;
+    }
+    
+    update();
+    state.countdownInterval = setInterval(update, 1000);
+}
+
+function scheduleNotifications(prayerMinutes, nextIndex) {
+    if (!state.notifications.prayer) return;
+    
+    const now = new Date();
+    const currentSeconds = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+    
+    prayerMinutes.forEach((minutes, i) => {
+        let targetSeconds = minutes * 60;
+        if (targetSeconds > currentSeconds) {
+            const delayMs = (targetSeconds - currentSeconds) * 1000;
+            setTimeout(() => {
+                if (tg && tg.showPopup) {
+                    tg.showPopup({
+                        title: "🕌 Namoz vaqti",
+                        message: `${PRAYERS[i].name} namozining vaqti kirdi!`,
+                        buttons: [{ type: "ok" }]
+                    });
+                }
+                showToast(`🔔 ${PRAYERS[i].name} namozining vaqti kirdi!`);
+            }, delayMs);
+        }
+    });
+    
+    if (state.notifications.earlyMinutes > 0) {
+        let earlyTarget = prayerMinutes[nextIndex] * 60 - state.notifications.earlyMinutes * 60;
+        if (earlyTarget > currentSeconds) {
+            const delayMs = (earlyTarget - currentSeconds) * 1000;
+            setTimeout(() => {
+                if (tg && tg.showPopup) {
+                    tg.showPopup({
+                        title: "⏰ Namoz haqida eslatma",
+                        message: `${state.notifications.earlyMinutes} daqiqadan so'ng ${PRAYERS[nextIndex].name} namozining vaqti kiradi.`,
+                        buttons: [{ type: "ok" }]
+                    });
+                }
+                showToast(`⏰ ${state.notifications.earlyMinutes} daqiqadan so'ng ${PRAYERS[nextIndex].name} namozi`);
+            }, delayMs);
+        }
+    }
 }
 
 // ============= QIBLA & COMPASS =============
-function calcQibla(lat, lon) { const lat2 = 21.3891 * Math.PI/180, lon2 = 39.8579 * Math.PI/180, lat1 = lat * Math.PI/180, lon1 = lon * Math.PI/180, dlon = lon2 - lon1; const x = Math.sin(dlon) * Math.cos(lat2), y = Math.cos(lat1)*Math.sin(lat2) - Math.sin(lat1)*Math.cos(lat2)*Math.cos(dlon); let bearing = (Math.atan2(x,y)*180/Math.PI + 360) % 360; return Math.round(bearing*10)/10; }
-const DIRECTIONS_UZ = [[22.5,"Shimol"],[67.5,"Shimoli-sharq"],[112.5,"Sharq"],[157.5,"Janubi-sharq"],[202.5,"Janub"],[247.5,"Janubi-g'arb"],[292.5,"G'arb"],[337.5,"Shimoli-g'arb"]];
-function getDirection(angle) { for (const [limit, name] of DIRECTIONS_UZ) { if (angle < limit) return name; } return "Shimol"; }
-function updateQiblaUI() { state.qiblaAngle = calcQibla(state.lat, state.lon); document.getElementById('qibla-angle').textContent = state.qiblaAngle + '°'; document.getElementById('qibla-dir').textContent = getDirection(state.qiblaAngle); }
+function calculateQibla(lat, lon) {
+    const meccaLat = 21.4225 * Math.PI / 180;
+    const meccaLon = 39.8262 * Math.PI / 180;
+    const phi = lat * Math.PI / 180;
+    const lambda = lon * Math.PI / 180;
+    
+    const dLon = meccaLon - lambda;
+    const y = Math.sin(dLon) * Math.cos(meccaLat);
+    const x = Math.cos(phi) * Math.sin(meccaLat) - Math.sin(phi) * Math.cos(meccaLat) * Math.cos(dLon);
+    let bearing = Math.atan2(y, x) * 180 / Math.PI;
+    bearing = (bearing + 360) % 360;
+    return Math.round(bearing * 10) / 10;
+}
 
-let kalman = { val: 0, last: null, stable: 0 };
-function kalmanUpdate(m) { const gain = 0.3; kalman.val = kalman.val + gain * (m - kalman.val); if (kalman.last !== null && Math.abs(kalman.val - kalman.last) < 2) kalman.stable++; else kalman.stable = 0; kalman.last = kalman.val; return kalman.stable >= 2 ? kalman.val : m; }
+const DIRECTIONS_UZ = [
+    [22.5, "Shimol"], [67.5, "Shimoli-sharq"], [112.5, "Sharq"], [157.5, "Janubi-sharq"],
+    [202.5, "Janub"], [247.5, "Janubi-g'arb"], [292.5, "G'arb"], [337.5, "Shimoli-g'arb"]
+];
 
-function initQibla() { updateQiblaUI(); document.getElementById('qibla-city-label').textContent = state.city; if (!state.compassActive) { if (window.DeviceOrientationEvent) { if (typeof DeviceOrientationEvent.requestPermission === 'function') { document.getElementById('permission-btn').style.display = 'block'; document.getElementById('compass-status').innerHTML = '<div>iOS uchun ruxsat kerak</div>'; } else { startCompass(); } } else { document.getElementById('compass-status').innerHTML = '<div>Kompas qo\'llab-quvvatlanmaydi</div>'; document.getElementById('qibla-arrow').style.transform = `rotate(${state.qiblaAngle}deg)`; } } }
-async function requestCompassPermission() { try { const perm = await DeviceOrientationEvent.requestPermission(); if (perm === 'granted') { document.getElementById('permission-btn').style.display = 'none'; startCompass(); } } catch(e) { startCompass(); } }
-function startCompass() { state.compassActive = true; window.addEventListener('deviceorientationabsolute', handleOrientation, true); window.addEventListener('deviceorientation', handleOrientation, true); document.getElementById('compass-status').innerHTML = '<div>✅ Kompas faol</div>'; }
-function handleOrientation(event) { let heading = event.alpha || 0; if (event.webkitCompassHeading !== undefined) heading = event.webkitCompassHeading; const stable = kalmanUpdate(heading); document.getElementById('compass-rose').style.transform = `rotate(${-stable}deg)`; const arrowRot = (state.qiblaAngle - stable + 360) % 360; document.getElementById('qibla-arrow').style.transform = `rotate(${arrowRot}deg)`; const rounded = Math.round(stable); document.getElementById('compass-heading').textContent = rounded + '°'; document.getElementById('compass-dir-label').textContent = getDirection(rounded); }
+function getDirection(angle) {
+    for (const [limit, name] of DIRECTIONS_UZ) {
+        if (angle < limit) return name;
+    }
+    return "Shimol";
+}
+
+function updateQiblaUI() {
+    state.qiblaAngle = calculateQibla(state.lat, state.lon);
+    document.getElementById('qibla-angle').textContent = state.qiblaAngle + '°';
+    document.getElementById('qibla-dir').textContent = getDirection(state.qiblaAngle);
+}
+
+class KalmanFilter {
+    constructor(processNoise = 0.03, measurementNoise = 0.5, estimatedError = 1, initialValue = 0) {
+        this.processNoise = processNoise;
+        this.measurementNoise = measurementNoise;
+        this.estimatedError = estimatedError;
+        this.currentEstimate = initialValue;
+    }
+    
+    update(measurement) {
+        const gain = this.estimatedError / (this.estimatedError + this.measurementNoise);
+        this.currentEstimate = this.currentEstimate + gain * (measurement - this.currentEstimate);
+        this.estimatedError = (1 - gain) * this.estimatedError + this.processNoise;
+        return this.currentEstimate;
+    }
+}
+
+const kalman = new KalmanFilter(0.03, 0.4, 1, 0);
+let lastFiltered = null;
+let stableCount = 0;
+
+function initQibla() {
+    updateQiblaUI();
+    
+    if (!state.compassActive) {
+        if (window.DeviceOrientationEvent) {
+            if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                document.getElementById('permission-btn').style.display = 'block';
+                document.getElementById('compass-status').innerHTML = '<span>📱 Kompas uchun ruxsat bering</span>';
+            } else {
+                startCompass();
+            }
+        } else {
+            document.getElementById('compass-status').innerHTML = '<span>⚠️ Kompas qo\'llab-quvvatlanmaydi</span>';
+            document.getElementById('qibla-arrow').style.transform = `rotate(${state.qiblaAngle}deg)`;
+        }
+    }
+}
+
+async function requestCompassPermission() {
+    try {
+        const perm = await DeviceOrientationEvent.requestPermission();
+        if (perm === 'granted') {
+            document.getElementById('permission-btn').style.display = 'none';
+            startCompass();
+        }
+    } catch(e) {
+        startCompass();
+    }
+}
+
+function startCompass() {
+    state.compassActive = true;
+    window.addEventListener('deviceorientationabsolute', handleOrientation, true);
+    window.addEventListener('deviceorientation', handleOrientation, true);
+    document.getElementById('compass-status').innerHTML = '<span>✅ Kompas faol</span>';
+}
+
+function handleOrientation(event) {
+    let heading = event.alpha || 0;
+    if (event.webkitCompassHeading !== undefined) {
+        heading = event.webkitCompassHeading;
+    }
+    
+    let filtered = kalman.update(heading);
+    if (lastFiltered !== null && Math.abs(filtered - lastFiltered) < 1.5) {
+        stableCount++;
+    } else {
+        stableCount = 0;
+    }
+    lastFiltered = filtered;
+    
+    const finalHeading = stableCount >= 3 ? filtered : heading;
+    state.currentHeading = finalHeading;
+    
+    document.getElementById('compass-rose').style.transform = `rotate(${-finalHeading}deg)`;
+    const arrowRotation = (state.qiblaAngle - finalHeading + 360) % 360;
+    document.getElementById('qibla-arrow').style.transform = `rotate(${arrowRotation}deg)`;
+    
+    const rounded = Math.round(finalHeading);
+    document.getElementById('compass-value').textContent = rounded + '°';
+    document.getElementById('compass-dir').textContent = getDirection(rounded);
+}
 
 // ============= CALENDAR =============
-function renderCalendar() { const y = state.calYear, m = state.calMonth; const today = new Date(); document.getElementById('cal-month-label').textContent = `${MONTHS_UZ[m]} ${y}`; const firstDay = new Date(y,m,1); let startDow = firstDay.getDay(); startDow = startDow === 0 ? 6 : startDow - 1; const daysInMonth = new Date(y,m+1,0).getDate(); const prevDays = new Date(y,m,0).getDate(); const grid = document.getElementById('cal-grid'); while (grid.children.length > 7) grid.removeChild(grid.lastChild); let jumaCount = 0; for (let i = startDow-1; i >= 0; i--) { const d = prevDays - i; const hijri = toHijri(y,m,d); const cell = document.createElement('div'); cell.className = 'cal-day other-month'; cell.innerHTML = `<span class="day-num">${d}</span><span class="day-hijri">${hijri.day}</span>`; grid.appendChild(cell); } for (let d=1; d<=daysInMonth; d++) { const date = new Date(y,m,d); const isToday = y===today.getFullYear() && m===today.getMonth() && d===today.getDate(); const isFriday = date.getDay() === 5; if (isFriday) jumaCount++; const hijri = toHijri(y,m+1,d); const cell = document.createElement('div'); cell.className = `cal-day ${isToday ? 'today' : ''} ${isFriday ? 'friday' : ''}`; cell.innerHTML = `<span class="day-num">${d}</span><span class="day-hijri">${hijri.day}</span>`; grid.appendChild(cell); } const totalCells = startDow + daysInMonth; const remain = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7); for (let d=1; d<=remain; d++) { const hijri = toHijri(y,m+2,d); const cell = document.createElement('div'); cell.className = 'cal-day other-month'; cell.innerHTML = `<span class="day-num">${d}</span><span class="day-hijri">${hijri.day}</span>`; grid.appendChild(cell); } document.getElementById('stat-juma').textContent = jumaCount; document.getElementById('stat-days').textContent = daysInMonth; }
-function changeMonth(dir) { state.calMonth += dir; if (state.calMonth > 11) { state.calMonth = 0; state.calYear++; } if (state.calMonth < 0) { state.calMonth = 11; state.calYear--; } renderCalendar(); }
-function toHijri(gy,gm,gd) { const jd = Math.floor((1461*(gy+4800+Math.floor((gm-14)/12)))/4) + Math.floor((367*(gm-2-12*Math.floor((gm-14)/12)))/12) - Math.floor((3*Math.floor((gy+4900+Math.floor((gm-14)/12))/100))/4) + gd - 32075; let l = jd - 1948440 + 10632; const n = Math.floor((l-1)/10631); l = l - 10631*n + 354; const j = Math.floor((10985-l)/5316)*Math.floor((50*l)/17719) + Math.floor(l/5670)*Math.floor((43*l)/15238); l = l - Math.floor((30-j)/15)*Math.floor((17719*j)/50) - Math.floor(j/16)*Math.floor((15238*j)/43) + 29; const hm = Math.floor((24*l)/709); const hd = l - Math.floor((709*hm)/24); return { day: hd, month: hm, year: 30*n + j - 30 }; }
+function toHijri(gy, gm, gd) {
+    const jd = Math.floor((1461 * (gy + 4800 + Math.floor((gm - 14) / 12))) / 4) +
+               Math.floor((367 * (gm - 2 - 12 * Math.floor((gm - 14) / 12))) / 12) -
+               Math.floor((3 * Math.floor((gy + 4900 + Math.floor((gm - 14) / 12)) / 100)) / 4) +
+               gd - 32075;
+    
+    let l = jd - 1948440 + 10632;
+    const n = Math.floor((l - 1) / 10631);
+    l = l - 10631 * n + 354;
+    const j = Math.floor((10985 - l) / 5316) * Math.floor((50 * l) / 17719) +
+              Math.floor(l / 5670) * Math.floor((43 * l) / 15238);
+    l = l - Math.floor((30 - j) / 15) * Math.floor((17719 * j) / 50) -
+          Math.floor(j / 16) * Math.floor((15238 * j) / 43) + 29;
+    const hm = Math.floor((24 * l) / 709);
+    const hd = l - Math.floor((709 * hm) / 24);
+    const hy = 30 * n + j - 30;
+    return { day: hd, month: hm, year: hy };
+}
+
+function renderCalendar() {
+    const year = state.calYear;
+    const month = state.calMonth;
+    const today = new Date();
+    
+    document.getElementById('month-label').textContent = `${MONTHS_UZ[month]} ${year}`;
+    
+    const firstDay = new Date(year, month, 1);
+    let startDow = firstDay.getDay();
+    startDow = startDow === 0 ? 6 : startDow - 1;
+    
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const prevDays = new Date(year, month, 0).getDate();
+    
+    const grid = document.getElementById('calendar-grid');
+    while (grid.children.length > 7) {
+        grid.removeChild(grid.lastChild);
+    }
+    
+    let fridayCount = 0;
+    
+    for (let i = startDow - 1; i >= 0; i--) {
+        const cell = document.createElement('div');
+        cell.className = 'cal-day other-month';
+        const d = prevDays - i;
+        const hijri = toHijri(year, month, d);
+        cell.innerHTML = `<div class="day-number">${d}</div><div class="day-hijri">${hijri.day}</div>`;
+        grid.appendChild(cell);
+    }
+    
+    for (let d = 1; d <= daysInMonth; d++) {
+        const date = new Date(year, month, d);
+        const dow = date.getDay();
+        const isToday = year === today.getFullYear() && month === today.getMonth() && d === today.getDate();
+        const isFriday = dow === 5;
+        if (isFriday) fridayCount++;
+        
+        const hijri = toHijri(year, month + 1, d);
+        const cell = document.createElement('div');
+        cell.className = `cal-day ${isToday ? 'today' : ''} ${isFriday ? 'friday' : ''}`;
+        cell.innerHTML = `<div class="day-number">${d}</div><div class="day-hijri">${hijri.day}</div>`;
+        grid.appendChild(cell);
+    }
+    
+    const totalCells = startDow + daysInMonth;
+    const remaining = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+    for (let d = 1; d <= remaining; d++) {
+        const cell = document.createElement('div');
+        cell.className = 'cal-day other-month';
+        const hijri = toHijri(year, month + 2, d);
+        cell.innerHTML = `<div class="day-number">${d}</div><div class="day-hijri">${hijri.day}</div>`;
+        grid.appendChild(cell);
+    }
+    
+    document.getElementById('friday-count').textContent = fridayCount;
+    document.getElementById('days-count').textContent = daysInMonth;
+}
+
+function changeMonth(delta) {
+    state.calMonth += delta;
+    if (state.calMonth > 11) {
+        state.calMonth = 0;
+        state.calYear++;
+    }
+    if (state.calMonth < 0) {
+        state.calMonth = 11;
+        state.calYear--;
+    }
+    renderCalendar();
+}
 
 // ============= SETTINGS =============
-function toggleNotification(type) { if (type === 'prayer') { state.notifications.prayer = !state.notifications.prayer; document.getElementById('prayer-notif-toggle').classList.toggle('on', state.notifications.prayer); showToast(state.notifications.prayer ? '✅ Namoz eslatmalari yoqildi' : '❌ Namoz eslatmalari o\'chirildi'); } saveState(); }
-function shareApp() { if (tg && tg.switchInlineQuery) { tg.switchInlineQuery('🕌 Namoz vaqtlari botini yuklab oling!', ['users']); } else { showToast('📤 @NamozVaqtBot ni ulashing'); } }
+function toggleNotification(type) {
+    if (type === 'prayer') {
+        state.notifications.prayer = !state.notifications.prayer;
+        const toggle = document.getElementById('prayer-notif-toggle');
+        toggle.classList.toggle('on', state.notifications.prayer);
+        showToast(state.notifications.prayer ? '✅ Namoz eslatmalari yoqildi' : '❌ Namoz eslatmalari o\'chirildi');
+    }
+    saveState();
+}
 
-// ============= CITY EDITOR =============
-function openCityEditor() { document.getElementById('city-editor').classList.add('open'); showCountryList(); }
-function closeCityEditor() { document.getElementById('city-editor').classList.remove('open'); }
-function closeCityEditorIfOutside(e) { if (e.target.id === 'city-editor') closeCityEditor(); }
-function showCountryList() { document.getElementById('editor-title').textContent = '🌍 Mamlakatni tanlang'; let html = '<div class="country-list">'; for (const [code, info] of Object.entries(COUNTRIES)) { html += `<div class="country-item" onclick="showCityList('${code}')"><span>${info.name}</span><span>›</span></div>`; } html += '</div>'; document.getElementById('editor-body').innerHTML = html; }
-function showCityList(countryCode) { const info = COUNTRIES[countryCode]; document.getElementById('editor-title').textContent = info.name; const cities = CITIES[countryCode] || []; let html = `<div class="back-btn" onclick="showCountryList()">‹ Orqaga</div><div class="city-list">`; for (const city of cities) { html += `<div class="city-item" onclick="selectCity('${countryCode}','${city.replace(/'/g,"\\'")}')">${city}</div>`; } html += '</div>'; document.getElementById('editor-body').innerHTML = html; }
-function selectCity(countryCode, city) { state.city = city; state.country = COUNTRIES[countryCode].api; state.countryCode = countryCode; state.countryName = COUNTRIES[countryCode].name.replace(/^[^\s]+\s/,''); saveState(); closeCityEditor(); showToast(`📍 ${city} tanlandi`); loadPrayerTimes(); updateQiblaUI(); }
+function showNotificationSettings() {
+    document.getElementById('notif-modal').classList.add('open');
+}
 
-// ============= INIT =============
-window.addEventListener('DOMContentLoaded', () => { loadPrayerTimes(); renderCalendar(); updateQiblaUI(); document.getElementById('prayer-notif-toggle').classList.toggle('on', state.notifications.prayer); });
-document.querySelectorAll('.nav-item').forEach(n => { n.addEventListener('click', () => { if (!document.getElementById('page-qibla').classList.contains('active') && state.compassActive) { window.removeEventListener('deviceorientationabsolute', handleOrientation, true); window.removeEventListener('deviceorientation', handleOrientation, true); state.compassActive = false; } }); });
+function closeNotifModal() {
+    document.getElementById('notif-modal').classList.remove('open');
+}
+
+function closeNotifModalOnOutside(e) {
+    if (e.target.id === 'notif-modal') closeNotifModal();
+}
+
+function setEarlyNotification(minutes) {
+    state.notifications.earlyMinutes = minutes;
+    saveState();
+    document.getElementById('early-notif-text').textContent = `${minutes} daqiqa oldin`;
+    closeNotifModal();
+    showToast(`⏰ ${minutes} daqiqa oldin eslatma yoqildi`);
+}
+
+function shareApp() {
+    if (tg && tg.switchInlineQuery) {
+        tg.switchInlineQuery('🕌 Namoz vaqtlari botini yuklab oling!', ['users']);
+    } else {
+        showToast('📤 @NamozVaqtBot ni ulashing');
+    }
+}
+
+// ============= CITY MODAL =============
+function openCityModal() {
+    document.getElementById('city-modal').classList.add('open');
+    showCountryList();
+}
+
+function closeCityModal() {
+    document.getElementById('city-modal').classList.remove('open');
+}
+
+function closeModalOnOutside(e) {
+    if (e.target.id === 'city-modal') closeCityModal();
+}
+
+function showCountryList() {
+    document.getElementById('modal-title').textContent = '🌍 Mamlakatni tanlang';
+    let html = '<div class="country-list">';
+    for (const [code, info] of Object.entries(COUNTRIES)) {
+        html += `<div class="country-item" onclick="showCityList('${code}')">
+            ${info.name} <span style="float: right;">›</span>
+        </div>`;
+    }
+    html += '</div>';
+    document.getElementById('modal-body').innerHTML = html;
+}
+
+function showCityList(countryCode) {
+    const info = COUNTRIES[countryCode];
+    document.getElementById('modal-title').textContent = info.name;
+    const cities = CITIES[countryCode] || [];
+    let html = `<div class="back-btn" onclick="showCountryList()">‹ Orqaga</div><div class="city-grid">`;
+    for (const city of cities) {
+        html += `<div class="city-item" onclick="selectCity('${countryCode}', '${city.replace(/'/g, "\\'")}')">${city}</div>`;
+    }
+    html += '</div>';
+    document.getElementById('modal-body').innerHTML = html;
+}
+
+function selectCity(countryCode, city) {
+    state.city = city;
+    state.country = COUNTRIES[countryCode].api;
+    state.countryCode = countryCode;
+    saveState();
+    closeCityModal();
+    showToast(`📍 ${city} tanlandi`);
+    loadPrayerTimes();
+    updateQiblaUI();
+}
+
+// ============= NAVIGATION =============
+function switchPage(pageId, navElement) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById(`page-${pageId}`).classList.add('active');
+    navElement.classList.add('active');
+    
+    if (pageId === 'qibla') initQibla();
+    if (pageId === 'taqvim') renderCalendar();
+}
+
+// ============= INITIALIZATION =============
+window.addEventListener('DOMContentLoaded', () => {
+    loadPrayerTimes();
+    renderCalendar();
+    updateQiblaUI();
+    document.getElementById('early-notif-text').textContent = `${state.notifications.earlyMinutes} daqiqa oldin`;
+    document.getElementById('prayer-notif-toggle').classList.toggle('on', state.notifications.prayer);
+});
+
+document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', () => {
+        if (!document.getElementById('page-qibla').classList.contains('active')) {
+            if (state.compassActive) {
+                window.removeEventListener('deviceorientationabsolute', handleOrientation, true);
+                window.removeEventListener('deviceorientation', handleOrientation, true);
+                state.compassActive = false;
+            }
+        }
+    });
+});
 </script>
 </body>
 </html>
