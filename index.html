@@ -1672,28 +1672,6 @@
         }
 
         // ============= SODDA KOMPAS (TUZATILGAN) =============
-        let lastHeadingSmooth = null;
-        let smoothCompassHeading = 0;
-
-        function smoothCompass(newHeading) {
-            if (lastHeadingSmooth === null) {
-                lastHeadingSmooth = newHeading;
-                smoothCompassHeading = newHeading;
-                return newHeading;
-            }
-            
-            let diff = newHeading - lastHeadingSmooth;
-            if (diff > 180) diff -= 360;
-            if (diff < -180) diff += 360;
-            
-            let step = Math.min(Math.abs(diff), 3) * Math.sign(diff);
-            smoothCompassHeading = (smoothCompassHeading + step + 360) % 360;
-            lastHeadingSmooth = newHeading;
-            
-            return smoothCompassHeading;
-        }
-
-        // ============= QIBLA & COMPASS =============
         function calculateQibla(lat, lon) {
             const meccaLat = 21.4225 * Math.PI / 180;
             const meccaLon = 39.8262 * Math.PI / 180;
@@ -1758,7 +1736,6 @@
 
         function startCompass() {
             state.compassActive = true;
-            lastHeadingSmooth = null;
             window.addEventListener('deviceorientationabsolute', handleOrientation, true);
             window.addEventListener('deviceorientation', handleOrientation, true);
             document.getElementById('compass-status').innerHTML = '<span>✅ Kompas faol</span>';
@@ -1771,8 +1748,7 @@
                 heading = event.webkitCompassHeading;
             }
             
-            let smooth = smoothCompass(heading);
-            let rounded = Math.round(smooth);
+            let rounded = Math.round(heading);
             
             document.getElementById('compass-rose').style.transform = `rotate(${-rounded}deg)`;
             
@@ -1918,11 +1894,16 @@
         }
 
         function shareApp() {
+            const botUsername = "@namoz_vaqtlari_24bot";
+            const shareText = `🕌 *Namoz Vaqtlari Boti*\n\n📍 Namoz vaqtlari\n🧭 Qibla kompasi\n🌡️ Ob-havo\n📅 Hijriy taqvim\n🔔 Namoz eslatmalari\n\n👇 Botni yuklab oling:\n${botUsername}`;
+            
             if (tg && tg.switchInlineQuery) {
-                tg.switchInlineQuery('🕌 Namoz vaqtlari botini yuklab oling!', ['users']);
+                tg.switchInlineQuery(shareText, ['users']);
             } else {
-                showToast('📤 @namoz_vaqtlari_24bot ni ulashing');
+                const shareUrl = `https://t.me/share/url?url=https://t.me/${botUsername.substring(1)}&text=${encodeURIComponent(shareText.replace(/\*/g, ''))}`;
+                window.open(shareUrl, '_blank');
             }
+            showToast('📤 Bot ulashildi');
         }
 
         // ============= CITY MODAL =============
