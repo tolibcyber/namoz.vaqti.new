@@ -38,38 +38,34 @@ def get_start_keyboard():
 # =============================================
 # /start
 # =============================================
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    user = update.effective_user
+async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+    user = query.from_user
     user_ids.add(user.id)
-    
-    # Foydalanuvchini ro'yxatga olish
-    if user.id not in user_settings:
-        user_settings[user.id] = {
-            "notify_before": 10,
-            "enabled": True,
-            "city": "Toshkent"
-        }
-    
-    first_name = user.first_name or "Foydalanuvchi"
 
-    text = (
-        f"☪️ *Assalomu alaykum, {first_name}!*\n\n"
-        "🕌 *Namoz Vaqtlari* botiga xush kelibsiz!\n\n"
-        "━━━━━━━━━━━━━━━\n"
-        "📱 Mini App orqali:\n\n"
-        "🌅  Bomdod, Peshin, Asr, Shom, Xufton vaqtlari\n"
-        "⏰  Keyingi namozgacha countdown taymer\n"
-        "🧭  Real vaqtda Qibla kompasi\n"
-        "📅  Hijri taqvim\n"
-        "━━━━━━━━━━━━━━━\n\n"
-        "👇 Pastdagi tugmani bosing:"
-    )
-
-    await update.message.reply_text(
-        text,
-        parse_mode="Markdown",
-        reply_markup=get_start_keyboard(),
-    )
+    if query.data == "about":   # <--- SHU QISM
+        await query.message.reply_text(
+            "🕌 *Namoz Vaqtlari Bot*\n\n"
+            "Bu bot Telegram Mini App orqali ishlaydi.\n\n"
+            "📡 Ma'lumot manbai: *namozvaqti.uz + Aladhan API*\n"
+            "🌍 8 ta mamlakat, 30+ shahar\n"
+            "🔄 Vaqtlar har kuni yangilanadi\n"
+            "💾 Oflayn kesh (1 soat)\n\n"
+            "🔔 *Eslatma buyruqlari:*\n"
+            "▪️ `/setnotify 10` - 10 daqiqa oldin eslatadi\n"
+            "▪️ `/mycity Toshkent` - shaharni o'zgartirish\n"
+            "▪️ `/status` - sozlamalarni ko'rish\n\n"
+            "👨‍💻 Muallif: @TolibDev\n"
+            "📌 Versiya: 2.0.0",
+            parse_mode="Markdown",
+            reply_markup=InlineKeyboardMarkup([[
+                InlineKeyboardButton(
+                    "🕌 Mini Appni ochish",
+                    web_app=WebAppInfo(url=MINI_APP_URL),
+                )
+            ]]),
+        )
 
 # =============================================
 # /setnotify - Eslatma vaqtini sozlash
