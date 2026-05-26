@@ -1747,17 +1747,17 @@
             if (event.webkitCompassHeading !== undefined) {
                 heading = event.webkitCompassHeading;
             }
-            
+
             let rounded = Math.round(heading);
-            
+
             document.getElementById('compass-rose').style.transform = `rotate(${-rounded}deg)`;
-            
+
             let pointerRot = (state.qiblaAngle - rounded + 360) % 360;
             document.getElementById('qibla-arrow').style.transform = `rotate(${pointerRot}deg)`;
-            
+
             document.getElementById('compass-value').textContent = rounded + '°';
             document.getElementById('compass-dir').textContent = getDirection(rounded);
-            
+
             state.currentHeading = rounded;
         }
 
@@ -1894,13 +1894,17 @@
         }
 
         function shareApp() {
-            const botUsername = "@namoz_vaqtlari_24bot";
-            const shareText = `🕌 *Namoz Vaqtlari Boti*\n\n📍 Namoz vaqtlari\n🧭 Qibla kompasi\n🌡️ Ob-havo\n📅 Hijriy taqvim\n🔔 Namoz eslatmalari\n\n👇 Botni yuklab oling:\n${botUsername}`;
-            
+            const botUsername = "namoz_vaqtlari_24bot";
+            const botLink = `https://t.me/${botUsername}`;
+            const shareText = `🕌 Namoz Vaqtlari Boti\n\n📍 Namoz vaqtlari\n🧭 Qibla kompasi\n🌡️ Ob-havo\n📅 Hijriy taqvim\n🔔 Namoz eslatmalari\n\n👇 Botni yuklab oling:\n${botLink}`;
+
+            // Telegram WebApp da ulashish
             if (tg && tg.switchInlineQuery) {
                 tg.switchInlineQuery(shareText, ['users']);
-            } else {
-                const shareUrl = `https://t.me/share/url?url=https://t.me/${botUsername.substring(1)}&text=${encodeURIComponent(shareText.replace(/\*/g, ''))}`;
+            }
+            // Agar WebApp da bo'lmasa
+            else {
+                const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(botLink)}&text=${encodeURIComponent(shareText)}`;
                 window.open(shareUrl, '_blank');
             }
             showToast('📤 Bot ulashildi');
