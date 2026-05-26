@@ -1900,14 +1900,22 @@
 
             // Telegram WebApp da ulashish
             if (tg && tg.switchInlineQuery) {
-                tg.switchInlineQuery(shareText, ['users']);
+                try {
+                    tg.switchInlineQuery(shareText, ['users']);
+                    showToast('📤 Ulashish oynasi ochilmoqda...');
+                } catch (e) {
+                    // Agar switchInlineQuery ishlamasa, link bilan ulashish
+                    const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(botLink)}&text=${encodeURIComponent(shareText)}`;
+                    window.open(shareUrl, '_blank');
+                    showToast('📤 Bot ulashildi');
+                }
             }
-            // Agar WebApp da bo'lmasa
+            // Agar WebApp da bo'lmasa yoki switchInlineQuery ishlamasa
             else {
                 const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(botLink)}&text=${encodeURIComponent(shareText)}`;
                 window.open(shareUrl, '_blank');
+                showToast('📤 Bot ulashildi');
             }
-            showToast('📤 Bot ulashildi');
         }
 
         // ============= CITY MODAL =============
