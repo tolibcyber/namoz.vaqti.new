@@ -1,6 +1,7 @@
 import logging
 import os
 import asyncio
+import aiohttp
 from datetime import datetime, timedelta
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, MessageHandler, filters, ContextTypes
@@ -152,28 +153,34 @@ async def status(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(status_text, parse_mode="Markdown")
 
 # =============================================
+# NAMOZ VAQTLARINI API DAN OLISH
+# =============================================
+async def fetch_namoz_times(city):
+    """namozvaqti.uz API dan namoz vaqtlarini olish"""
+    try:
+        url = f"https://namozvaqti.uz/api/prayer-times?city={city}"
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as response:
+                data = await response.json()
+                if data.get("success") and data.get("times"):
+                    return {
+                        "Bomdod": data["times"]["bomdod"],
+                        "Peshin": data["times"]["peshin"],
+                        "Asr": data["times"]["asr"],
+                        "Shom": data["times"]["shom"],
+                        "Xufton": data["times"]["xufton"]
+                    }
+    except Exception as e:
+        print(f"API xatosi: {e}")
+    return None
+
+# =============================================
 # NAMOZ VAQTLARINI TEKSHIRISH (har daqiqada)
 # =============================================
 async def check_prayer_times(context: ContextTypes.DEFAULT_TYPE):
     """Har daqiqada ishlaydi va namoz vaqtlarini tekshiradi"""
     now = datetime.now()
     current_time = now.strftime("%H:%M")
-    
-    # Shaharlar va ularning namoz vaqtlari (namozvaqti.uz bilan bir xil)
-    prayer_times_db = {
-        "Toshkent": {"Bomdod": "05:00", "Peshin": "12:30", "Asr": "16:00", "Shom": "19:00", "Xufton": "20:30"},
-        "Samarqand": {"Bomdod": "04:50", "Peshin": "12:25", "Asr": "15:55", "Shom": "18:55", "Xufton": "20:25"},
-        "Buxoro": {"Bomdod": "04:55", "Peshin": "12:35", "Asr": "16:05", "Shom": "19:05", "Xufton": "20:35"},
-        "Farg'ona": {"Bomdod": "04:40", "Peshin": "12:15", "Asr": "15:45", "Shom": "18:45", "Xufton": "20:15"},
-        "Andijon": {"Bomdod": "04:38", "Peshin": "12:13", "Asr": "15:43", "Shom": "18:43", "Xufton": "20:13"},
-        "Namangan": {"Bomdod": "04:42", "Peshin": "12:17", "Asr": "15:47", "Shom": "18:47", "Xufton": "20:17"},
-        "Qo'qon": {"Bomdod": "04:44", "Peshin": "12:19", "Asr": "15:49", "Shom": "18:49", "Xufton": "20:19"},
-        "Nukus": {"Bomdod": "05:10", "Peshin": "13:00", "Asr": "16:30", "Shom": "19:30", "Xufton": "21:00"},
-        "Termiz": {"Bomdod": "04:35", "Peshin": "12:10", "Asr": "15:40", "Shom": "18:40", "Xufton": "20:10"},
-        "Qarshi": {"Bomdod": "04:45", "Peshin": "12:20", "Asr": "15:50", "Shom": "18:50", "Xufton": "20:20"},
-        "Navoiy": {"Bomdod": "04:48", "Peshin": "12:23", "Asr": "15:53", "Shom": "18:53", "Xufton": "20:23"},
-        "Jizzax": {"Bomdod": "04:46", "Peshin": "12:21", "Asr": "15:51", "Shom": "18:51", "Xufton": "20:21"}
-    }
     
     for user_id, settings in user_settings.items():
         if not settings.get("enabled", True):
@@ -182,10 +189,30 @@ async def check_prayer_times(context: ContextTypes.DEFAULT_TYPE):
         city = settings.get("city", "Toshkent")
         notify_before = settings.get("notify_before", 10)
         
-        # Shahar namoz vaqtlarini olish
-        prayers = prayer_times_db.get(city, prayer_times_db["Toshkent"])
+        # API dan namoz vaqtlarini olish (kesh bilan)
+        cache_key = f"namoz_times_{city}"
+        prayer_times = None
         
-        for prayer_name, prayer_time in prayers.items():
+        # Keshni tekshirish (5 daqiqa)
+        if hasattr(check_prayer_times, 'cache'):
+            cached = check_prayer_times.cache.get(cache_key)
+            if cached and (datetime.now() - cached['time']).seconds < 300:
+                prayer_times = cached['times']
+        
+        if not prayer_times:
+            prayer_times = await fetch_namoz_times(city)
+            if prayer_times:
+                if not hasattr(check_prayer_times, 'cache'):
+                    check_prayer_times.cache = {}
+                check_prayer_times.cache[cache_key] = {
+                    'times': prayer_times,
+                    'time': datetime.now()
+                }
+        
+        if not prayer_times:
+            continue
+        
+        for prayer_name, prayer_time in prayer_times.items():
             # Namoz vaqti kelganda
             if current_time == prayer_time:
                 await context.bot.send_message(
