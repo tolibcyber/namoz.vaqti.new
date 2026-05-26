@@ -1217,42 +1217,62 @@ function formatTime(timeStr) {
 
 async function loadWeather() {
     const city = state.city;
-    // Kalitsiz API - darhol ishlaydi
-    const url = `https://wttr.in/${encodeURIComponent(city)}?format=j1&lang=uz`;
+    console.log("Ob-havo yuklanmoqda. Shahar:", city);
+    
+    // OpenWeatherMap API kaliti (o'zingiznikiga almashtiring!)
+    const apiKey = "efb115be96afc08d932177c80778a194";
+    
+    // Shaharni translit qilish
+    const cityMap = {
+        "Toshkent": "Tashkent", "Samarqand": "Samarkand", "Buxoro": "Bukhara",
+        "Farg'ona": "Fergana", "Andijon": "Andijan", "Namangan": "Namangan",
+        "Qo'qon": "Kokand", "Nukus": "Nukus", "Termiz": "Termez",
+        "Qarshi": "Karshi", "Navoiy": "Navoi", "Jizzax": "Jizzakh",
+        "Urganch": "Urgench", "Xiva": "Khiva", "Shahrisabz": "Shakhrisabz", "Guliston": "Gulistan"
+    };
+    
+    const englishCity = cityMap[city] || city;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${englishCity},UZ&appid=${apiKey}&units=metric&lang=uz`;
     
     try {
-        console.log("Ob-havo so'ralmoqda:", url);
+        console.log("API so'ralmoqda:", url);
         const res = await fetch(url);
         const data = await res.json();
+        console.log("API javobi:", data);
         
-        if (data && data.current_condition && data.current_condition[0]) {
-            const current = data.current_condition[0];
-            const temp = current.temp_C;
-            const humidity = current.humidity;
-            const wind = current.windspeedKmph;
-            const desc = current.weatherDesc[0].value;
+        if (data.cod === 200) {
+            const temp = Math.round(data.main.temp);
+            const humidity = data.main.humidity;
+            const wind = data.wind.speed;
+            const desc = data.weather[0].description;
             
-            // Ikonani aniqlash
+            // Ikonka
             let icon = "🌡️";
-            if (desc.includes("Sunny") || desc.includes("Quyoshli")) icon = "☀️";
-            else if (desc.includes("Cloud") || desc.includes("Bulutli")) icon = "☁️";
-            else if (desc.includes("Rain") || desc.includes("Yomg'ir")) icon = "🌧️";
-            else if (desc.includes("Snow") || desc.includes("Qor")) icon = "❄️";
-            else if (desc.includes("Mist") || desc.includes("Tuman")) icon = "🌫️";
+            const iconCode = data.weather[0].icon;
+            if (iconCode.includes("01")) icon = "☀️";
+            else if (iconCode.includes("02")) icon = "⛅";
+            else if (iconCode.includes("03") || iconCode.includes("04")) icon = "☁️";
+            else if (iconCode.includes("09") || iconCode.includes("10")) icon = "🌧️";
+            else if (iconCode.includes("11")) icon = "⛈️";
+            else if (iconCode.includes("13")) icon = "❄️";
+            else if (iconCode.includes("50")) icon = "🌫️";
             
             document.getElementById('weather-icon').textContent = icon;
             document.getElementById('weather-temp').textContent = `${temp}°C`;
             document.getElementById('weather-desc').textContent = desc;
             document.getElementById('weather-details').innerHTML = 
-                `<span>💧 ${humidity}%</span><span>🌬️ ${wind} km/h</span>`;
+                `<span>💧 ${humidity}%</span><span>🌬️ ${wind} m/s</span>`;
                 
-            console.log("Ob-havo yuklandi:", temp, "°C");
+            console.log("Ob-havo muvaffaqiyatli yuklandi!");
+        } else if (data.cod === 401) {
+            console.error("API kaliti xato! Kod 401");
+            useDemoWeather();
         } else {
-            console.log("Ob-havo ma'lumoti topilmadi");
+            console.error("API xatosi:", data.message);
             useDemoWeather();
         }
     } catch(e) {
-        console.error("Ob-havo xatosi:", e);
+        console.error("Ob-havo yuklashda xatolik:", e);
         useDemoWeather();
     }
 }
@@ -1263,7 +1283,6 @@ function useDemoWeather() {
     document.getElementById('weather-desc').textContent = "Ob-havo ma'lumoti";
     document.getElementById('weather-details').innerHTML = `<span>💧 --%</span><span>🌬️ -- m/s</span>`;
 }
-
 function detectLocation() {
     showToast("📍 Joylashuv aniqlanmoqda...");
     
