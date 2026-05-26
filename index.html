@@ -25,13 +25,13 @@
             --radius: 20px;
             --radius-sm: 12px;
         }
- 
+
         * {
             margin: 0; padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
- 
+
         html, body {
             width: 100%; height: 100%;
             overflow: hidden;
@@ -39,7 +39,7 @@
             color: var(--text);
             font-family: 'Cairo', sans-serif;
         }
- 
+
         /* GEOMETRIC BACKGROUND PATTERN */
         body::before {
             content: '';
@@ -52,7 +52,7 @@
             pointer-events: none;
             z-index: 0;
         }
- 
+
         body::after {
             content: '';
             position: fixed;
@@ -65,7 +65,7 @@
             pointer-events: none;
             z-index: 0;
         }
- 
+
         /* APP CONTAINER */
         #app {
             position: fixed;
@@ -76,7 +76,7 @@
             margin: 0 auto;
             z-index: 1;
         }
- 
+
         /* PAGES */
         .page {
             flex: 1;
@@ -95,12 +95,12 @@
             from { opacity: 0; transform: translateY(12px) scale(0.98); }
             to   { opacity: 1; transform: translateY(0) scale(1); }
         }
- 
+
         /* SCROLLBAR */
         .page::-webkit-scrollbar { width: 3px; }
         .page::-webkit-scrollbar-track { background: transparent; }
         .page::-webkit-scrollbar-thumb { background: var(--green-dim); border-radius: 2px; }
- 
+
         /* HEADER */
         .page-header {
             padding: 20px 20px 0;
@@ -110,7 +110,7 @@
             z-index: 10;
             padding-bottom: 10px;
         }
- 
+
         .header-city {
             font-size: 22px;
             font-weight: 700;
@@ -131,7 +131,7 @@
             margin-top: 1px;
             font-weight: 600;
         }
- 
+
         /* COUNTDOWN */
         .countdown-card {
             margin: 14px 20px 0;
@@ -169,7 +169,7 @@
             font-weight: 700;
             color: var(--text);
         }
- 
+
         /* PRAYER CARDS */
         .prayer-list {
             padding: 14px 20px 0;
@@ -177,7 +177,7 @@
             flex-direction: column;
             gap: 10px;
         }
- 
+
         .prayer-card {
             background: var(--glass);
             border: 1px solid var(--glass-border);
@@ -198,7 +198,7 @@
             background: linear-gradient(135deg, transparent, rgba(255,255,255,0.02));
             pointer-events: none;
         }
- 
+
         .prayer-card.active {
             background: linear-gradient(135deg, rgba(29,185,84,0.12), rgba(29,185,84,0.06));
             border-color: var(--green-glow);
@@ -209,12 +209,12 @@
             0%, 100% { box-shadow: 0 0 20px rgba(29,185,84,0.2), inset 0 1px 0 rgba(255,255,255,0.1); }
             50% { box-shadow: 0 0 35px rgba(29,185,84,0.4), inset 0 1px 0 rgba(255,255,255,0.1); }
         }
- 
+
         .prayer-card.done {
             opacity: 0.45;
         }
         .prayer-card.done .prayer-icon { filter: grayscale(0.5); }
- 
+
         .prayer-icon {
             font-size: 26px;
             width: 44px;
@@ -261,7 +261,7 @@
             border-radius: 20px;
             letter-spacing: 0.5px;
         }
- 
+
         /* SKELETON LOADER */
         .skeleton {
             background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.09) 50%, rgba(255,255,255,0.04) 75%);
@@ -273,7 +273,7 @@
             from { background-position: 200% 0; }
             to   { background-position: -200% 0; }
         }
- 
+
         .loading-wrap {
             padding: 14px 20px 0;
             display: flex;
@@ -287,7 +287,7 @@
             height: 80px;
             margin: 14px 20px 0;
         }
- 
+
         /* LOADING MOON */
         .loading-center {
             display: flex;
@@ -314,7 +314,7 @@
             0%, 100% { opacity: 0.5; }
             50% { opacity: 1; }
         }
- 
+
         /* ==================== QIBLA PAGE ==================== */
         .qibla-wrap {
             display: flex;
@@ -323,7 +323,7 @@
             padding: 20px;
             gap: 20px;
         }
- 
+
         .qibla-info-row {
             display: flex;
             gap: 12px;
@@ -353,7 +353,7 @@
             color: var(--gold);
             margin-top: 2px;
         }
- 
+
         /* COMPASS */
         .compass-outer {
             position: relative;
@@ -375,7 +375,7 @@
             border-radius: 50%;
             border: 1px solid rgba(255,255,255,0.06);
         }
- 
+
         /* Degree markers */
         .compass-markers {
             position: absolute;
@@ -399,14 +399,14 @@
         }
         .compass-dir.n span { color: var(--gold); font-size: 13px; }
         .compass-dir.s span, .compass-dir.e span, .compass-dir.w span { color: rgba(255,255,255,0.6); }
- 
+
         /* Tick marks */
         .compass-ticks {
             position: absolute;
             inset: 0;
             border-radius: 50%;
         }
- 
+
         /* Compass Rose */
         .compass-rose {
             position: absolute;
@@ -421,7 +421,7 @@
             width: 100%;
             height: 100%;
         }
- 
+
         /* Qibla Arrow - fixed in compass, rotates to point to Mecca */
         .qibla-arrow-wrap {
             position: absolute;
@@ -457,7 +457,7 @@
             border-radius: 50%;
             background: rgba(29,185,84,0.4);
         }
- 
+
         /* Center dot */
         .compass-center {
             position: absolute;
@@ -471,7 +471,7 @@
             z-index: 10;
             box-shadow: 0 0 8px rgba(240,165,0,0.8);
         }
- 
+
         .permission-btn {
             background: linear-gradient(135deg, var(--green), #17a34a);
             color: #000;
@@ -488,7 +488,7 @@
         .permission-btn:active {
             transform: scale(0.97);
         }
- 
+
         .compass-status {
             background: var(--glass);
             border: 1px solid var(--glass-border);
@@ -505,7 +505,7 @@
             color: var(--text);
             margin-top: 4px;
         }
- 
+
         /* ==================== TAQVIM PAGE ==================== */
         .calendar-wrap {
             padding: 20px;
@@ -536,7 +536,7 @@
             transition: all 0.2s;
         }
         .cal-nav:active { background: var(--green-dim); color: var(--green); }
- 
+
         .cal-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -550,7 +550,7 @@
             padding: 6px 0;
         }
         .cal-dow.friday { color: var(--green); }
- 
+
         .cal-day {
             aspect-ratio: 1;
             display: flex;
@@ -584,7 +584,7 @@
         .cal-day.friday:not(.today) { background: rgba(29,185,84,0.06); }
         .cal-day.other-month .day-num { opacity: 0.2; }
         .cal-day:not(.today):not(.other-month):hover { background: var(--glass); }
- 
+
         .cal-stats {
             margin-top: 16px;
             background: var(--glass);
@@ -619,7 +619,7 @@
             color: var(--text-dim);
             margin-top: 2px;
         }
- 
+
         /* ==================== SETTINGS PAGE ==================== */
         .settings-wrap {
             padding: 20px;
@@ -627,7 +627,7 @@
             flex-direction: column;
             gap: 12px;
         }
- 
+
         .settings-section-title {
             font-size: 11px;
             font-weight: 700;
@@ -637,7 +637,7 @@
             margin-bottom: -4px;
             padding-left: 4px;
         }
- 
+
         .settings-card {
             background: var(--glass);
             border: 1px solid var(--glass-border);
@@ -655,7 +655,7 @@
         }
         .settings-item:last-child { border-bottom: none; }
         .settings-item:active { background: rgba(255,255,255,0.04); }
- 
+
         .settings-icon {
             width: 38px;
             height: 38px;
@@ -670,7 +670,7 @@
         .settings-icon.gold  { background: rgba(240,165,0,0.15); }
         .settings-icon.blue  { background: rgba(59,130,246,0.15); }
         .settings-icon.red   { background: rgba(239,68,68,0.12); }
- 
+
         .settings-info { flex: 1; }
         .settings-label {
             font-size: 14px;
@@ -686,7 +686,7 @@
             color: var(--text-dim);
             font-size: 14px;
         }
- 
+
         /* TOGGLE */
         .toggle {
             width: 44px;
@@ -712,7 +712,7 @@
             box-shadow: 0 1px 4px rgba(0,0,0,0.3);
         }
         .toggle.on::after { transform: translateX(20px); }
- 
+
         .version-card {
             background: var(--glass);
             border: 1px solid var(--glass-border);
@@ -739,7 +739,7 @@
             color: var(--text-dim);
             margin-top: 8px;
         }
- 
+
         /* CITY EDITOR */
         .city-editor {
             display: none;
@@ -828,7 +828,7 @@
             font-weight: 600;
             cursor: pointer;
         }
- 
+
         /* BOTTOM NAV */
         .bottom-nav {
             position: fixed;
@@ -881,7 +881,7 @@
             border-radius: 0 0 2px 2px;
             box-shadow: 0 0 8px var(--green);
         }
- 
+
         /* TOAST */
         .toast {
             position: fixed;
@@ -903,7 +903,7 @@
             opacity: 1;
             transform: translateX(-50%) translateY(0);
         }
- 
+
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(16px); }
             to   { opacity: 1; transform: translateY(0); }
@@ -911,9 +911,9 @@
     </style>
 </head>
 <body>
- 
+
 <div id="app">
- 
+
     <!-- ===== PAGE 1: NAMOZ ===== -->
     <div class="page active" id="page-namoz">
         <div class="page-header">
@@ -921,7 +921,7 @@
             <div class="header-date" id="today-date">—</div>
             <div class="header-hijri" id="hijri-date">—</div>
         </div>
- 
+
         <div id="namoz-loading">
             <div class="skeleton skeleton-countdown"></div>
             <div class="loading-wrap">
@@ -933,7 +933,7 @@
                 <div class="skeleton skeleton-card"></div>
             </div>
         </div>
- 
+
         <div id="namoz-content" style="display:none">
             <div class="countdown-card">
                 <div>
@@ -945,18 +945,18 @@
                     <div class="countdown-next-name" id="next-prayer-name">—</div>
                 </div>
             </div>
- 
+
             <div class="prayer-list" id="prayer-list"></div>
         </div>
     </div>
- 
+
     <!-- ===== PAGE 2: QIBLA ===== -->
     <div class="page" id="page-qibla">
         <div class="page-header">
             <div class="header-city">🧭 Qibla Tomoni</div>
             <div class="header-date" id="qibla-city-label">Toshkent</div>
         </div>
- 
+
         <div class="qibla-wrap">
             <div class="qibla-info-row">
                 <div class="qibla-info-card">
@@ -970,11 +970,11 @@
                     <div class="qibla-info-dir" id="compass-dir-label">Shimol</div>
                 </div>
             </div>
- 
+
             <!-- COMPASS -->
             <div class="compass-outer" id="compass-outer">
                 <div class="compass-ring"></div>
- 
+
                 <!-- Direction labels -->
                 <div class="compass-markers">
                     <div class="compass-dir n" style="transform:rotate(0deg)"><span>N</span></div>
@@ -986,7 +986,7 @@
                     <div class="compass-dir w" style="transform:rotate(270deg)"><span style="transform:rotate(-270deg)">W</span></div>
                     <div class="compass-dir" style="transform:rotate(315deg)"><span style="transform:rotate(-315deg);color:rgba(255,255,255,0.35);font-size:9px">NW</span></div>
                 </div>
- 
+
                 <!-- Compass Rose (rotates with device) -->
                 <div class="compass-rose" id="compass-rose">
                     <svg viewBox="0 0 200 200" class="rose-svg">
@@ -996,28 +996,28 @@
                         <!-- Diagonal lines -->
                         <line x1="30" y1="30" x2="170" y2="170" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
                         <line x1="170" y1="30" x2="30" y2="170" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
- 
+
                         <!-- Tick marks around edge -->
                         <circle cx="100" cy="100" r="88" fill="none" stroke="rgba(240,165,0,0.15)" stroke-width="1"
                             stroke-dasharray="4 10.9" stroke-dashoffset="0"/>
- 
+
                         <!-- North arrow (gold) -->
                         <polygon points="100,28 106,60 100,55 94,60" fill="#F0A500" opacity="0.9"/>
                         <!-- South pointer -->
                         <polygon points="100,172 106,140 100,145 94,140" fill="rgba(255,255,255,0.3)"/>
- 
+
                         <!-- Cardinal dots -->
                         <circle cx="100" cy="22" r="3" fill="#F0A500"/>
                         <circle cx="178" cy="100" r="2" fill="rgba(255,255,255,0.4)"/>
                         <circle cx="100" cy="178" r="2" fill="rgba(255,255,255,0.4)"/>
                         <circle cx="22"  cy="100" r="2" fill="rgba(255,255,255,0.4)"/>
- 
+
                         <!-- Center ring -->
                         <circle cx="100" cy="100" r="8"  fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
                         <circle cx="100" cy="100" r="4"  fill="rgba(255,255,255,0.1)"/>
                     </svg>
                 </div>
- 
+
                 <!-- Qibla Arrow (rotates to Mecca) -->
                 <div class="qibla-arrow-wrap" id="qibla-arrow">
                     <div class="qibla-arrow">
@@ -1026,34 +1026,34 @@
                         <div class="qibla-arrow-tail"></div>
                     </div>
                 </div>
- 
+
                 <!-- Center dot -->
                 <div class="compass-center"></div>
             </div>
- 
+
             <button class="permission-btn" id="permission-btn" onclick="requestCompassPermission()" style="display:none">
                 📱 Ruxsat berish
             </button>
- 
+
             <div class="compass-status" id="compass-status">
                 <div>Kompas ishga tushirilmoqda...</div>
             </div>
         </div>
     </div>
- 
+
     <!-- ===== PAGE 3: TAQVIM ===== -->
     <div class="page" id="page-taqvim">
         <div class="page-header">
             <div class="header-city">📅 Taqvim</div>
         </div>
- 
+
         <div class="calendar-wrap">
             <div class="cal-header">
                 <button class="cal-nav" onclick="changeMonth(-1)">‹</button>
                 <div class="cal-month" id="cal-month-label"></div>
                 <button class="cal-nav" onclick="changeMonth(1)">›</button>
             </div>
- 
+
             <div class="cal-grid" id="cal-grid">
                 <div class="cal-dow">Du</div>
                 <div class="cal-dow">Se</div>
@@ -1063,7 +1063,7 @@
                 <div class="cal-dow">Sh</div>
                 <div class="cal-dow">Ya</div>
             </div>
- 
+
             <div class="cal-stats">
                 <div class="cal-stats-title">📊 Oy statistikasi</div>
                 <div class="stats-row">
@@ -1083,13 +1083,13 @@
             </div>
         </div>
     </div>
- 
+
     <!-- ===== PAGE 4: SETTINGS ===== -->
     <div class="page" id="page-settings">
         <div class="page-header">
             <div class="header-city">⚙️ Sozlamalar</div>
         </div>
- 
+
         <div class="settings-wrap">
             <div class="settings-section-title">Manzil</div>
             <div class="settings-card">
@@ -1102,7 +1102,7 @@
                     <div class="settings-right">›</div>
                 </div>
             </div>
- 
+
             <div class="settings-section-title">Bildirishnomalar</div>
             <div class="settings-card">
                 <div class="settings-item">
@@ -1122,7 +1122,7 @@
                     <div class="toggle" id="earlynotif-toggle" onclick="toggleSetting('earlynotif')"></div>
                 </div>
             </div>
- 
+
             <div class="settings-section-title">Ulashish</div>
             <div class="settings-card">
                 <div class="settings-item" onclick="shareApp()">
@@ -1134,7 +1134,7 @@
                     <div class="settings-right">›</div>
                 </div>
             </div>
- 
+
             <div class="version-card">
                 <div class="version-logo">🕌</div>
                 <div class="version-name">Namoz Vaqtlari</div>
@@ -1143,7 +1143,7 @@
             </div>
         </div>
     </div>
- 
+
     <!-- BOTTOM NAVIGATION -->
     <nav class="bottom-nav">
         <div class="nav-item active" onclick="switchPage('namoz', this)">
@@ -1164,7 +1164,7 @@
         </div>
     </nav>
 </div>
- 
+
 <!-- CITY EDITOR MODAL -->
 <div class="city-editor" id="city-editor" onclick="closeCityEditorIfOutside(event)">
     <div class="city-editor-inner">
@@ -1173,10 +1173,10 @@
         <div id="editor-body"></div>
     </div>
 </div>
- 
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
- 
+
 <script>
 // =============================================
 // TELEGRAM WEBAPP INIT
@@ -1191,9 +1191,9 @@ try {
 } catch(e) {
     tg = { initDataUnsafe: {}, switchInlineQuery: () => {} };
 }
- 
+
 const urlParams = new URLSearchParams(window.location.search);
- 
+
 // =============================================
 // DATA
 // =============================================
@@ -1207,7 +1207,7 @@ const COUNTRIES = {
     us: { name: "🇺🇸 AQSH",        api: "United States" },
     gb: { name: "🇬🇧 Buyuk Britaniya", api: "United Kingdom" },
 };
- 
+
 const CITIES = {
     uz: ["Toshkent","Samarqand","Buxoro","Namangan","Andijon","Farg'ona","Qo'qon","Nukus","Termiz","Qarshi","Jizzax","Navoiy"],
     ru: ["Moskva","Sankt-Peterburg","Kazan","Ufa","Novosibirsk","Yekaterinburg"],
@@ -1218,7 +1218,7 @@ const CITIES = {
     us: ["Nyu-York","Los-Anjeles","Chikago","Xouston"],
     gb: ["London","Manchester","Birmingham"],
 };
- 
+
 const CITY_API = {
     "Toshkent":"Tashkent","Samarqand":"Samarkand","Buxoro":"Bukhara",
     "Namangan":"Namangan","Andijon":"Andijan","Farg'ona":"Fergana",
@@ -1233,7 +1233,7 @@ const CITY_API = {
     "Nyu-York":"New York","Los-Anjeles":"Los Angeles","Chikago":"Chicago","Xouston":"Houston",
     "London":"London","Manchester":"Manchester","Birmingham":"Birmingham",
 };
- 
+
 const PRAYERS = [
     { key:"Fajr",    icon:"🌅", uzName:"Bomdod",  arName:"الفجر" },
     { key:"Sunrise", icon:"🌄", uzName:"Quyosh",  arName:"الشروق" },
@@ -1242,11 +1242,11 @@ const PRAYERS = [
     { key:"Maghrib", icon:"🌆", uzName:"Shom",    arName:"المغرب" },
     { key:"Isha",    icon:"🌙", uzName:"Xufton",  arName:"العشاء" },
 ];
- 
+
 const HIJRI_MONTHS = ["Muharram","Safar","Rabi ul-avval","Rabi ul-oxir","Jumad ul-avval","Jumad ul-oxir","Rajab","Sha'bon","Ramazon","Shavvol","Zul-qa'da","Zul-hijja"];
 const WEEKDAYS_UZ = { Monday:"Dushanba",Tuesday:"Seshanba",Wednesday:"Chorshanba",Thursday:"Payshanba",Friday:"Juma",Saturday:"Shanba",Sunday:"Yakshanba" };
 const MONTHS_UZ = ["Yanvar","Fevral","Mart","Aprel","May","Iyun","Iyul","Avgust","Sentabr","Oktabr","Noyabr","Dekabr"];
- 
+
 // =============================================
 // STATE
 // =============================================
@@ -1265,20 +1265,20 @@ let state = {
     calYear: new Date().getFullYear(),
     calMonth: new Date().getMonth(),
 };
- 
+
 // Load from localStorage
 try {
     const saved = JSON.parse(localStorage.getItem('namoz_state') || '{}');
     if (saved.city) Object.assign(state, saved);
 } catch(e) {}
- 
+
 // Override from URL/Telegram
 const tgUser = tg.initDataUnsafe?.user;
 const urlCity = urlParams.get('city');
 const urlCountry = urlParams.get('country');
 if (urlCity) { state.city = urlCity; }
 if (urlCountry) { state.country = urlCountry; }
- 
+
 // =============================================
 // SAVE STATE
 // =============================================
@@ -1290,7 +1290,7 @@ function saveState() {
         }));
     } catch(e) {}
 }
- 
+
 // =============================================
 // NAVIGATION
 // =============================================
@@ -1299,12 +1299,12 @@ function switchPage(id, navEl) {
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     document.getElementById('page-' + id).classList.add('active');
     navEl.classList.add('active');
- 
+
     if (id === 'qibla') initQibla();
     if (id === 'taqvim') renderCalendar();
     if (id === 'settings') updateSettingsUI();
 }
- 
+
 // =============================================
 // TOAST
 // =============================================
@@ -1314,38 +1314,131 @@ function showToast(msg) {
     t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 2500);
 }
- 
+
 // =============================================
 // PRAYER TIMES
 // =============================================
+// namozvaqti.uz dan vaqtlarni olish
+// =============================================
+const CITY_SLUG = {
+    "Toshkent":"toshkent","Samarqand":"samarqand","Buxoro":"buxoro",
+    "Namangan":"namangan","Andijon":"andijon","Farg'ona":"fargona",
+    "Qo'qon":"qoqon","Nukus":"nukus","Termiz":"termiz",
+    "Qarshi":"qarshi","Jizzax":"jizzax","Navoiy":"navoiy",
+    // Rossiya, Qozog'iston va boshqa: API fallback
+};
+
 async function loadPrayerTimes() {
     document.getElementById('namoz-loading').style.display = 'block';
     document.getElementById('namoz-content').style.display = 'none';
- 
-    // Update UI city name
     document.getElementById('city-display').textContent = state.city;
     document.getElementById('qibla-city-label').textContent = state.city;
- 
-    // Try cache (1 hour)
-    const cacheKey = `namoz_${state.city}_${state.country}_h1`;
-    const now = Date.now();
+
+    const today = new Date();
+    const month = today.getMonth() + 1;
+    const day = today.getDate();
+    const cacheKey = `nv_${state.city}_${today.toDateString()}`;
+
+    // Cache: shu kunga (bugun oxirigacha)
     try {
         const cached = JSON.parse(localStorage.getItem(cacheKey) || 'null');
-        if (cached && (now - cached.ts) < 3600000) {
-            renderPrayerTimes(cached.data);
+        if (cached) {
+            renderPrayerTimes(cached);
             return;
         }
     } catch(e) {}
- 
-    // Fetch from API
-    const apiCity = CITY_API[state.city] || state.city;
-    const url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(apiCity)}&country=${encodeURIComponent(state.country)}&method=3&school=1`;
- 
+
+    const slug = CITY_SLUG[state.city];
+    if (slug) {
+        // namozvaqti.uz dan olish
+        try {
+            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://namozvaqti.uz/oylik/${month}/${slug}`)}`;
+            const res = await fetch(proxyUrl);
+            const json = await res.json();
+            const html = json.contents;
+            const data = parseNamozvaqtiHTML(html, day);
+            if (data) {
+                localStorage.setItem(cacheKey, JSON.stringify(data));
+                renderPrayerTimes(data);
+                return;
+            }
+        } catch(e) {}
+    }
+
+    // Fallback: aladhan API
+    await loadFromAladhan();
+}
+
+function parseNamozvaqtiHTML(html, day) {
+    try {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const rows = doc.querySelectorAll('table tr');
+        for (const row of rows) {
+            const cells = row.querySelectorAll('td');
+            if (cells.length < 7) continue;
+            const kunText = cells[0].textContent.trim();
+            const kunNum = parseInt(kunText);
+            if (kunNum === day) {
+                const bomdod  = cells[1].textContent.trim();
+                const quyosh  = cells[2].textContent.trim();
+                const peshin  = cells[3].textContent.trim();
+                const asr     = cells[4].textContent.trim();
+                const shom    = cells[5].textContent.trim();
+                const xufton  = cells[6].textContent.trim();
+                if (!bomdod || bomdod === '—') return null;
+
+                const now = new Date();
+                const WEEKDAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+                const MONTHS_EN = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+                const d = String(now.getDate()).padStart(2,'0');
+                const m = MONTHS_EN[now.getMonth()];
+                const y = now.getFullYear();
+
+                return {
+                    timings: {
+                        Fajr: bomdod, Sunrise: quyosh,
+                        Dhuhr: peshin, Asr: asr,
+                        Maghrib: shom, Isha: xufton
+                    },
+                    date: {
+                        gregorian: {
+                            weekday: { en: WEEKDAYS[now.getDay()] },
+                            date: `${d}-${m}-${y}`
+                        },
+                        hijri: { day:'', month:{ number:'1' }, year:'' }
+                    },
+                    meta: null,
+                    _source: 'namozvaqti.uz'
+                };
+            }
+        }
+    } catch(e) {}
+    return null;
+}
+
+async function loadFromAladhan() {
+    const now = Date.now();
+    const CITY_COORDS_FB = {
+        "Toshkent":[41.2995,69.2401],"Samarqand":[39.6547,66.9750],
+        "Buxoro":[39.7747,64.4286],"Namangan":[41.0011,71.6722],
+        "Andijon":[40.7821,72.3442],"Farg'ona":[40.3864,71.7864],
+        "Qo'qon":[40.5286,70.9422],"Nukus":[42.4611,59.6103],
+        "Termiz":[37.2242,67.2783],"Qarshi":[38.8600,65.7900],
+        "Jizzax":[40.1158,67.8422],"Navoiy":[40.0939,65.3792],
+    };
+    const coords = CITY_COORDS_FB[state.city];
+    let url;
+    if (coords) {
+        url = `https://api.aladhan.com/v1/timings?latitude=${coords[0]}&longitude=${coords[1]}&method=3&school=1`;
+    } else {
+        const apiCity = CITY_API[state.city] || state.city;
+        url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(apiCity)}&country=${encodeURIComponent(state.country)}&method=3&school=1`;
+    }
     try {
         const res = await fetch(url);
         const json = await res.json();
         if (json.code === 200 && json.data) {
-            localStorage.setItem(cacheKey, JSON.stringify({ data: json.data, ts: now }));
             renderPrayerTimes(json.data);
         } else {
             renderDemoData();
@@ -1354,7 +1447,7 @@ async function loadPrayerTimes() {
         renderDemoData();
     }
 }
- 
+
 function renderDemoData() {
     const demoTimings = {
         Fajr:"04:32",Sunrise:"06:10",Dhuhr:"13:05",Asr:"17:30",Maghrib:"20:15",Isha:"21:45"
@@ -1368,40 +1461,59 @@ function renderDemoData() {
         meta: { latitude: 41.2995, longitude: 69.2401 }
     });
 }
- 
+
 function renderPrayerTimes(data) {
     state.timings = data.timings;
- 
+
     // Save coordinates
-    if (data.meta) {
+    const COORD_MAP = {
+        "Toshkent":[41.2995,69.2401],"Samarqand":[39.6547,66.9750],"Buxoro":[39.7747,64.4286],
+        "Namangan":[41.0011,71.6722],"Andijon":[40.7821,72.3442],"Farg'ona":[40.3864,71.7864],
+        "Qo'qon":[40.5286,70.9422],"Nukus":[42.4611,59.6103],"Termiz":[37.2242,67.2783],
+        "Qarshi":[38.8600,65.7900],"Jizzax":[40.1158,67.8422],"Navoiy":[40.0939,65.3792],
+    };
+    if (data.meta && data.meta.latitude) {
         state.lat = parseFloat(data.meta.latitude) || state.lat;
         state.lon = parseFloat(data.meta.longitude) || state.lon;
-        state.qiblaAngle = calcQibla(state.lat, state.lon);
+    } else if (COORD_MAP[state.city]) {
+        state.lat = COORD_MAP[state.city][0];
+        state.lon = COORD_MAP[state.city][1];
     }
- 
+    state.qiblaAngle = calcQibla(state.lat, state.lon);
+
     // Date display
     const greg = data.date?.gregorian || {};
     const hijri = data.date?.hijri || {};
     const wd = WEEKDAYS_UZ[greg.weekday?.en] || '';
     const dt = greg.date || '';
     document.getElementById('today-date').textContent = `${wd}, ${dt}`;
- 
-    const hDay = hijri.day || '';
-    const hMonth = HIJRI_MONTHS[(parseInt(hijri.month?.number)||1)-1] || '';
-    const hYear = hijri.year || '';
-    document.getElementById('hijri-date').textContent = `🌙 ${hDay} ${hMonth} ${hYear} h.`;
- 
+
+    // Hijri - agar namozvaqti.uz dan kelgan bo'lsa, o'zimiz hisoblaymiz
+    let hijriText = '';
+    if (hijri.day && hijri.year) {
+        const hDay = hijri.day;
+        const hMonth = HIJRI_MONTHS[(parseInt(hijri.month?.number)||1)-1] || '';
+        const hYear = hijri.year;
+        hijriText = `🌙 ${hDay} ${hMonth} ${hYear} h.`;
+    } else {
+        // Hisoblash
+        const now2 = new Date();
+        const hc = toHijri(now2.getFullYear(), now2.getMonth()+1, now2.getDate());
+        hijriText = `🌙 ${hc.day} ${HIJRI_MONTHS[hc.month-1]} ${hc.year} h.`;
+    }
+    document.getElementById('hijri-date').textContent = hijriText;
+
     // Render prayer cards
     const now = new Date();
     const currentMins = now.getHours()*60 + now.getMinutes();
- 
+
     // Find active prayer
     const prayerMins = PRAYERS.map(p => {
         const t = (state.timings[p.key] || '00:00').slice(0,5);
         const [h,m] = t.split(':').map(Number);
         return h*60+m;
     });
- 
+
     let activeIdx = -1;
     let nextIdx = -1;
     for (let i = 0; i < prayerMins.length; i++) {
@@ -1415,18 +1527,18 @@ function renderPrayerTimes(data) {
         activeIdx = PRAYERS.length - 1;
         nextIdx = 0; // next day Bomdod
     }
- 
+
     const listEl = document.getElementById('prayer-list');
     listEl.innerHTML = '';
     PRAYERS.forEach((p, i) => {
         const t = (state.timings[p.key] || '').slice(0,5);
         const isDone = nextIdx > 0 ? i < nextIdx : i < PRAYERS.length;
         const isActive = i === nextIdx;
- 
+
         const card = document.createElement('div');
         card.className = 'prayer-card' + (isActive ? ' active' : '') + (isDone && !isActive ? ' done' : '');
         card.style.animationDelay = `${i * 0.06}s`;
- 
+
         card.innerHTML = `
             ${isActive ? '<div class="active-badge">KEYINGI</div>' : ''}
             <div class="prayer-icon">${p.icon}</div>
@@ -1438,41 +1550,41 @@ function renderPrayerTimes(data) {
         `;
         listEl.appendChild(card);
     });
- 
+
     // Start countdown
     startCountdown(nextIdx, prayerMins);
- 
+
     // Show content
     document.getElementById('namoz-loading').style.display = 'none';
     document.getElementById('namoz-content').style.display = 'block';
 }
- 
+
 function startCountdown(nextIdx, prayerMins) {
     if (state.countdownInterval) clearInterval(state.countdownInterval);
- 
+
     function update() {
         const now = new Date();
         const currentSecs = now.getHours()*3600 + now.getMinutes()*60 + now.getSeconds();
         let targetSecs = prayerMins[nextIdx] * 60;
         if (targetSecs <= currentSecs) targetSecs += 86400; // next day
- 
+
         let diff = targetSecs - currentSecs;
         if (diff < 0) diff += 86400;
- 
+
         const h = Math.floor(diff/3600);
         const m = Math.floor((diff%3600)/60);
         const s = diff % 60;
- 
+
         document.getElementById('countdown').textContent =
             `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
         document.getElementById('next-prayer-name').textContent =
             PRAYERS[nextIdx].icon + ' ' + PRAYERS[nextIdx].uzName;
     }
- 
+
     update();
     state.countdownInterval = setInterval(update, 1000);
 }
- 
+
 // =============================================
 // QIBLA / COMPASS
 // =============================================
@@ -1487,31 +1599,31 @@ function calcQibla(lat, lon) {
     const bearing = (Math.atan2(x,y)*180/Math.PI + 360) % 360;
     return Math.round(bearing*10)/10;
 }
- 
+
 const DIRECTIONS_UZ = [
     [22.5,"Shimol"], [67.5,"Shimoli-sharq"], [112.5,"Sharq"], [157.5,"Janubi-sharq"],
     [202.5,"Janub"], [247.5,"Janubi-g'arb"], [292.5,"G'arb"], [337.5,"Shimoli-g'arb"]
 ];
- 
+
 function getDirection(angle) {
     for (const [limit, name] of DIRECTIONS_UZ) {
         if (angle < limit) return name;
     }
     return "Shimol";
 }
- 
+
 function initQibla() {
     state.qiblaAngle = calcQibla(state.lat, state.lon);
     document.getElementById('qibla-angle').textContent = state.qiblaAngle + '°';
     document.getElementById('qibla-dir').textContent = getDirection(state.qiblaAngle);
     document.getElementById('qibla-city-label').textContent = state.city;
- 
+
     if (!state.compassActive) {
         // Check DeviceOrientation support
         if (window.DeviceOrientationEvent) {
             document.getElementById('compass-status').innerHTML =
                 '<div>Kompas ishga tushmoqda...</div>';
- 
+
             if (typeof DeviceOrientationEvent.requestPermission === 'function') {
                 // iOS - needs permission
                 document.getElementById('permission-btn').style.display = 'block';
@@ -1526,7 +1638,7 @@ function initQibla() {
         }
     }
 }
- 
+
 async function requestCompassPermission() {
     try {
         const perm = await DeviceOrientationEvent.requestPermission();
@@ -1540,7 +1652,7 @@ async function requestCompassPermission() {
         startCompass();
     }
 }
- 
+
 function startCompass() {
     state.compassActive = true;
     window.addEventListener('deviceorientationabsolute', handleOrientation, true);
@@ -1548,38 +1660,42 @@ function startCompass() {
     document.getElementById('compass-status').innerHTML =
         '<div>Kompas faol ✓</div><div class="heading" id="heading-display">0°</div>';
 }
- 
+
 function handleOrientation(event) {
     let rawHeading = event.alpha || 0;
+    // webkitCompassHeading - iOS va ba'zi Android uchun to'g'ridan-to'g'ri shimolga nisbatan
     if (event.webkitCompassHeading !== undefined) {
         rawHeading = event.webkitCompassHeading;
     }
- 
-    // Low-pass filter: smooth out rapid jitter (alpha=0.15 = smooth, closer to 1 = raw)
-    // Handle 0/360 degree wrap-around
+
+    // Low-pass filter: keskin sakrashlarni yumshatish, 0/360 chegarasini ham to'g'ri olish
     let prev = state.currentHeading;
     let diff = rawHeading - prev;
     if (diff > 180) diff -= 360;
     if (diff < -180) diff += 360;
-    const heading = (prev + diff * 0.2 + 360) % 360;
- 
+    const heading = (prev + diff * 0.15 + 360) % 360;
     state.currentHeading = heading;
- 
-    // Rotate compass rose opposite to device heading
+
+    // Kompas rozetasi: telefon aylantirilganda shimol doim yuqorida turadi
+    // Telefonni sharqqa bursan -> kompas -90° aylanadi (shimol chap tomonda qoladi)
     document.getElementById('compass-rose').style.transform = `rotate(${-heading}deg)`;
- 
-    // Rotate Qibla arrow to always point toward Mecca
-    const arrowRot = (state.qiblaAngle - heading + 360) % 360;
-    document.getElementById('qibla-arrow').style.transform = `rotate(${arrowRot}deg)`;
- 
-    // Update displays
+
+    // Qibla strelkasi: FAQAT qibla tomonga ko'rsatsin
+    // qiblaAngle = shimoldan soat yo'nalishida Makkagacha bo'lgan burchak (masalan Toshkent ~240°)
+    // heading = qurilma shimoldan soat yo'nalishida necha daraja burilgan
+    // Strelka kompas rozetasiga o'rnatilgan, rozeta -heading aylanadi
+    // Shuning uchun strelkani qiblaAngle ga qo'yish yetarli - rozeta o'zi to'g'rilaydi
+    const qiblaRot = state.qiblaAngle;
+    document.getElementById('qibla-arrow').style.transform = `rotate(${qiblaRot}deg)`;
+
+    // Displey yangilash
     const rounded = Math.round(heading);
     document.getElementById('compass-heading').textContent = rounded + '°';
     document.getElementById('compass-dir-label').textContent = getDirection(rounded);
     const hd = document.getElementById('heading-display');
     if (hd) hd.textContent = rounded + '°';
 }
- 
+
 function showStaticCompass() {
     // Point arrow statically at Qibla angle
     document.getElementById('qibla-arrow').style.transform = `rotate(${state.qiblaAngle}deg)`;
@@ -1587,7 +1703,7 @@ function showStaticCompass() {
     document.getElementById('compass-status').innerHTML =
         `<div>Kompas sensori topilmadi</div><div class="heading">Qibla: ${state.qiblaAngle}°</div>`;
 }
- 
+
 // =============================================
 // CALENDAR
 // =============================================
@@ -1595,33 +1711,33 @@ function renderCalendar() {
     const y = state.calYear;
     const m = state.calMonth;
     const today = new Date();
- 
+
     const monthNames = MONTHS_UZ;
     document.getElementById('cal-month-label').textContent = `${monthNames[m]} ${y}`;
- 
+
     const firstDay = new Date(y, m, 1);
     // Monday = 0 offset
     let startDow = firstDay.getDay(); // 0=Sun
     startDow = startDow === 0 ? 6 : startDow - 1; // convert to Mon=0
- 
+
     const daysInMonth = new Date(y, m+1, 0).getDate();
     const prevDays = new Date(y, m, 0).getDate();
- 
+
     const grid = document.getElementById('cal-grid');
     // Remove old day cells (keep dow headers = first 7 children)
     while (grid.children.length > 7) {
         grid.removeChild(grid.lastChild);
     }
- 
+
     let jumaCount = 0;
- 
+
     // Previous month days
     for (let i = startDow - 1; i >= 0; i--) {
         const cell = createDayCell(prevDays - i, y, m-1, false);
         cell.classList.add('other-month');
         grid.appendChild(cell);
     }
- 
+
     // Current month days
     for (let d = 1; d <= daysInMonth; d++) {
         const date = new Date(y, m, d);
@@ -1629,15 +1745,15 @@ function renderCalendar() {
         const isToday = y===today.getFullYear() && m===today.getMonth() && d===today.getDate();
         const isFriday = dow === 5;
         if (isFriday) jumaCount++;
- 
+
         const hijri = toHijri(y, m+1, d);
- 
+
         const cell = document.createElement('div');
         cell.className = 'cal-day' + (isToday?' today':'') + (isFriday?' friday':'');
         cell.innerHTML = `<span class="day-num">${d}</span><span class="day-hijri">${hijri.day}</span>`;
         grid.appendChild(cell);
     }
- 
+
     // Next month fill
     const totalCells = startDow + daysInMonth;
     const remainCells = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
@@ -1646,11 +1762,11 @@ function renderCalendar() {
         cell.classList.add('other-month');
         grid.appendChild(cell);
     }
- 
+
     document.getElementById('stat-juma').textContent = jumaCount;
     document.getElementById('stat-days').textContent = daysInMonth;
 }
- 
+
 function createDayCell(d, y, m, _) {
     const cell = document.createElement('div');
     cell.className = 'cal-day';
@@ -1658,14 +1774,14 @@ function createDayCell(d, y, m, _) {
     cell.innerHTML = `<span class="day-num">${d}</span><span class="day-hijri">${hijri.day}</span>`;
     return cell;
 }
- 
+
 function changeMonth(dir) {
     state.calMonth += dir;
     if (state.calMonth > 11) { state.calMonth = 0; state.calYear++; }
     if (state.calMonth < 0)  { state.calMonth = 11; state.calYear--; }
     renderCalendar();
 }
- 
+
 // Simple Hijri conversion algorithm
 function toHijri(gy, gm, gd) {
     // Julian Day Number
@@ -1685,7 +1801,7 @@ function toHijri(gy, gm, gd) {
     const hy = 30*n + j - 30;
     return { year: hy, month: hm, day: hd };
 }
- 
+
 // =============================================
 // SETTINGS
 // =============================================
@@ -1693,13 +1809,13 @@ function updateSettingsUI() {
     document.getElementById('settings-city-label').textContent =
         `${state.city}, ${state.countryName}`;
 }
- 
+
 function toggleSetting(key) {
     const el = document.getElementById(key + '-toggle');
     el.classList.toggle('on');
     showToast(el.classList.contains('on') ? '✅ Yoqildi' : '❌ O\'chirildi');
 }
- 
+
 function shareApp() {
     try {
         tg.switchInlineQuery('Namoz vaqtlari');
@@ -1708,7 +1824,7 @@ function shareApp() {
         showToast('📤 @NamozVaqtBot');
     }
 }
- 
+
 // =============================================
 // CITY EDITOR
 // =============================================
@@ -1716,15 +1832,15 @@ function openCityEditor() {
     document.getElementById('city-editor').classList.add('open');
     showCountryList();
 }
- 
+
 function closeCityEditor() {
     document.getElementById('city-editor').classList.remove('open');
 }
- 
+
 function closeCityEditorIfOutside(e) {
     if (e.target.id === 'city-editor') closeCityEditor();
 }
- 
+
 function showCountryList() {
     document.getElementById('editor-title').textContent = '🌍 Mamlakatni tanlang';
     let html = '<div class="country-list">';
@@ -1736,7 +1852,7 @@ function showCountryList() {
     html += '</div>';
     document.getElementById('editor-body').innerHTML = html;
 }
- 
+
 function showCityList(countryCode) {
     const info = COUNTRIES[countryCode];
     document.getElementById('editor-title').textContent = info.name;
@@ -1751,7 +1867,7 @@ function showCityList(countryCode) {
     html += '</div>';
     document.getElementById('editor-body').innerHTML = html;
 }
- 
+
 function selectCity(countryCode, city) {
     state.city = city;
     state.country = COUNTRIES[countryCode].api;
@@ -1760,14 +1876,14 @@ function selectCity(countryCode, city) {
     saveState();
     closeCityEditor();
     showToast(`📍 ${city} tanlandi`);
- 
+
     // Reload prayer times
     state.timings = null;
     state.compassActive = false;
     document.getElementById('city-display').textContent = city;
     loadPrayerTimes();
 }
- 
+
 // =============================================
 // INIT
 // =============================================
@@ -1776,7 +1892,7 @@ window.addEventListener('DOMContentLoaded', () => {
     renderCalendar();
     updateSettingsUI();
 });
- 
+
 // Stop compass on page leave
 document.querySelectorAll('.nav-item').forEach(n => {
     n.addEventListener('click', () => {
