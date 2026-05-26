@@ -818,6 +818,15 @@
             text-align: center;
         }
         .city-item:active, .city-item.active { background: var(--green-dim); color: var(--green); }
+        .region-header {
+            padding: 10px 16px 4px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            opacity: 0.8;
+        }
         .back-btn {
             display: flex;
             align-items: center;
@@ -1208,8 +1217,43 @@ const COUNTRIES = {
     gb: { name: "🇬🇧 Buyuk Britaniya", api: "United Kingdom" },
 };
 
+// O'zbekiston viloyatlari bo'yicha guruhlar
+const UZ_REGIONS = {
+    "Toshkent sh.":   ["Toshkent"],
+    "Toshkent vil.":  ["Angren","Bekobod","Piskent","Bo'ka","Ga'zalkent","Yangiyo'l","Nurafshon","Olmaliq","Parkent"],
+    "Samarqand":      ["Samarqand","Ishtixon","Kattaqo'rg'on","Urgut","Mirbozor"],
+    "Farg'ona":       ["Farg'ona","Qo'qon","Marg'ilon","Quva","Rishton","Oltiariq","Bog'dod"],
+    "Andijon":        ["Andijon","Xonobod","Shahrixon","Asaka","Marhamat","Bo'ston"],
+    "Namangan":       ["Namangan","Chortoq","Chust","Pop","Uchqo'rg'on","Mingbuloq"],
+    "Buxoro":         ["Buxoro","Gazli","G'ijduvon","Qorako'l","Jondor"],
+    "Navoiy":         ["Navoiy","Zarafshon","Konimex","Nurota","Uchquduq"],
+    "Qashqadaryo":    ["Qarshi","Shahrisabz","Muborak","Dehqonobod","G'uzor"],
+    "Surxondaryo":    ["Termiz","Boysun","Denov","Sherobod","Sho'rchi"],
+    "Jizzax":         ["Jizzax","Zomin","Forish","G'allaorol","Do'stlik"],
+    "Sirdaryo":       ["Guliston","Sardoba","Sirdaryo","Boyovut","Paxtaobod"],
+    "Qoraqalpog'iston": ["Nukus","Mo'ynoq","Taxtako'pir","To'rtko'l","Qo'ng'irot"],
+    "Xorazm":         ["Urganch","Xiva","Xonqa","Yangibozor","Shovot","Hazorasp"],
+};
+
 const CITIES = {
-    uz: ["Toshkent","Samarqand","Buxoro","Namangan","Andijon","Farg'ona","Qo'qon","Nukus","Termiz","Qarshi","Jizzax","Navoiy"],
+    uz: [
+        "Toshkent","Samarqand","Andijon","Namangan","Farg'ona","Buxoro","Qarshi",
+        "Navoiy","Nukus","Termiz","Jizzax","Qo'qon","Marg'ilon","Urganch","Xiva",
+        "Guliston","Angren","Olmaliq","Bekobod","Yangiyo'l","Nurafshon",
+        "Zarafshon","Konimex","Nurota","Uchquduq",
+        "Shahrisabz","Muborak","Dehqonobod","G'uzor",
+        "Boysun","Denov","Sherobod","Sho'rchi",
+        "Gazli","G'ijduvon","Qorako'l","Jondor",
+        "Zomin","Forish","G'allaorol","Do'stlik",
+        "Guliston","Sardoba","Sirdaryo","Boyovut","Paxtaobod",
+        "Mo'ynoq","Taxtako'pir","To'rtko'l","Qo'ng'irot",
+        "Ishtixon","Kattaqo'rg'on","Urgut",
+        "Xonobod","Shahrixon","Asaka","Marhamat",
+        "Chortoq","Chust","Pop","Uchqo'rg'on",
+        "Parkent","Piskent","Bo'ka","Ga'zalkent",
+        "Xonqa","Yangibozor","Shovot","Hazorasp",
+        "Quva","Rishton","Oltiariq","Bog'dod",
+    ],
     ru: ["Moskva","Sankt-Peterburg","Kazan","Ufa","Novosibirsk","Yekaterinburg"],
     kz: ["Olmaota","Astana","Shymkent"],
     tr: ["Istanbul","Anqara","Izmir","Bursa"],
@@ -1321,11 +1365,46 @@ function showToast(msg) {
 // namozvaqti.uz dan vaqtlarni olish
 // =============================================
 const CITY_SLUG = {
-    "Toshkent":"toshkent","Samarqand":"samarqand","Buxoro":"buxoro",
-    "Namangan":"namangan","Andijon":"andijon","Farg'ona":"fargona",
-    "Qo'qon":"qoqon","Nukus":"nukus","Termiz":"termiz",
-    "Qarshi":"qarshi","Jizzax":"jizzax","Navoiy":"navoiy",
-    // Rossiya, Qozog'iston va boshqa: API fallback
+    // Toshkent va viloyati
+    "Toshkent":"toshkent","Angren":"angren","Bekobod":"bekobod",
+    "Piskent":"piskent","Bo'ka":"boka","Ga'zalkent":"gazalkent",
+    "Yangiyo'l":"yangiyol","Nurafshon":"nurafshon","Olmaliq":"olmaliq","Parkent":"parkent",
+    // Samarqand
+    "Samarqand":"samarqand","Ishtixon":"ishtixon","Kattaqo'rg'on":"kattaqorgon",
+    "Urgut":"urgut","Mirbozor":"mirbozor",
+    // Farg'ona
+    "Farg'ona":"fargona","Qo'qon":"qoqon","Marg'ilon":"margilon",
+    "Quva":"quva","Rishton":"rishton","Oltiariq":"oltiariq","Bog'dod":"bogdod",
+    // Andijon
+    "Andijon":"andijon","Xonobod":"xonobod","Shahrixon":"shahrixon",
+    "Asaka":"asaka","Marhamat":"marhamat","Bo'ston":"Boston",
+    // Namangan
+    "Namangan":"namangan","Chortoq":"chortoq","Chust":"chust",
+    "Pop":"pop1","Uchqo'rg'on":"uchqorgon","Mingbuloq":"Mingbuloq",
+    // Buxoro
+    "Buxoro":"buxoro","Gazli":"gazli","G'ijduvon":"gijduvon",
+    "Qorako'l":"qorakol","Jondor":"jondor",
+    // Navoiy
+    "Navoiy":"navoiy","Zarafshon":"zarafshon","Konimex":"konimex",
+    "Nurota":"nurota","Uchquduq":"uchquduq",
+    // Qashqadaryo
+    "Qarshi":"qarshi","Shahrisabz":"shahrisabz","Muborak":"muborak",
+    "Dehqonobod":"dehqonobod","G'uzor":"guzor",
+    // Surxondaryo
+    "Termiz":"termiz","Boysun":"boysun","Denov":"denov",
+    "Sherobod":"sherobod","Sho'rchi":"shorchi",
+    // Jizzax
+    "Jizzax":"jizzax","Zomin":"zomin","Forish":"forish",
+    "G'allaorol":"gallaorol","Do'stlik":"dostlik",
+    // Sirdaryo
+    "Guliston":"guliston","Sardoba":"sardoba","Sirdaryo":"sirdaryo",
+    "Boyovut":"boyovut","Paxtaobod":"paxtaobod",
+    // Qoraqalpog'iston
+    "Nukus":"nukus","Mo'ynoq":"moynoq","Taxtako'pir":"taxtakopir",
+    "To'rtko'l":"tortkol","Qo'ng'irot":"qongirot",
+    // Xorazm
+    "Urganch":"urganch","Xiva":"xiva","Xonqa":"xonqa",
+    "Yangibozor":"yangibozor","Shovot":"shovot","Hazorasp":"hazorasp",
 };
 
 async function loadPrayerTimes() {
@@ -1856,28 +1935,63 @@ function showCountryList() {
 function showCityList(countryCode) {
     const info = COUNTRIES[countryCode];
     document.getElementById('editor-title').textContent = info.name;
-    const cities = CITIES[countryCode] || [];
-    let html = `<div class="back-btn" onclick="showCountryList()">‹ Orqaga</div>
-        <div class="city-list">`;
-    for (const city of cities) {
-        html += `<div class="city-item ${state.city===city?'active':''}" onclick="selectCity('${countryCode}','${city.replace(/'/g,"\\'")}')">
-            ${city}
-        </div>`;
+
+    if (countryCode === 'uz') {
+        let html = `<div class="back-btn" onclick="showCountryList()">‹ Orqaga</div>`;
+        for (const [region, cities] of Object.entries(UZ_REGIONS)) {
+            html += `<div class="region-header">${region}</div><div class="city-list">`;
+            for (const city of cities) {
+                const safe = city.replace(/'/g, "\'");
+                html += `<div class="city-item ${state.city===city?'active':''}" onclick="selectCity('uz','${safe}')">${city}</div>`;
+            }
+            html += '</div>';
+        }
+        document.getElementById('editor-body').innerHTML = html;
+    } else {
+        const cities = CITIES[countryCode] || [];
+        let html = `<div class="back-btn" onclick="showCountryList()">‹ Orqaga</div><div class="city-list">`;
+        for (const city of cities) {
+            const safe = city.replace(/'/g, "\'");
+            html += `<div class="city-item ${state.city===city?'active':''}" onclick="selectCity('${countryCode}','${safe}')">${city}</div>`;
+        }
+        html += '</div>';
+        document.getElementById('editor-body').innerHTML = html;
     }
-    html += '</div>';
-    document.getElementById('editor-body').innerHTML = html;
 }
+
+// Toshkent shahari koordinatalari (Qibla uchun)
+const CITY_COORDS_ALL = {
+    "Toshkent":[41.2995,69.2401],"Angren":[41.0167,70.1439],"Bekobod":[40.2211,69.2644],
+    "Piskent":[41.0494,69.7058],"Bo'ka":[41.1825,69.2108],"Ga'zalkent":[41.5636,69.7694],
+    "Yangiyo'l":[41.1167,69.0500],"Nurafshon":[41.2333,69.5833],"Olmaliq":[40.8486,69.5983],"Parkent":[41.2967,69.6744],
+    "Samarqand":[39.6547,66.9750],"Ishtixon":[39.9789,66.4808],"Kattaqo'rg'on":[39.8997,66.2561],"Urgut":[39.4028,66.8833],"Mirbozor":[39.7167,67.0],
+    "Farg'ona":[40.3864,71.7864],"Qo'qon":[40.5286,70.9422],"Marg'ilon":[40.4744,71.7239],"Quva":[40.5333,71.9667],"Rishton":[40.3564,71.2819],"Oltiariq":[40.5167,71.7167],"Bog'dod":[40.2667,71.7833],
+    "Andijon":[40.7821,72.3442],"Xonobod":[40.7861,72.3442],"Shahrixon":[40.7103,72.0583],"Asaka":[40.6406,72.2342],"Marhamat":[40.4778,72.3028],"Bo'ston":[40.5333,72.7167],
+    "Namangan":[41.0011,71.6722],"Chortoq":[41.0722,71.8372],"Chust":[40.9889,71.2361],"Pop":[41.1833,71.1167],"Uchqo'rg'on":[41.1167,72.0833],"Mingbuloq":[40.7833,71.6833],
+    "Buxoro":[39.7747,64.4286],"Gazli":[40.1333,63.4667],"G'ijduvon":[40.1033,64.6822],"Qorako'l":[39.4872,63.8511],"Jondor":[39.5667,64.1167],
+    "Navoiy":[40.0939,65.3792],"Zarafshon":[41.5639,64.1761],"Konimex":[40.2833,63.8333],"Nurota":[40.5578,65.6906],"Uchquduq":[42.1639,63.5628],
+    "Qarshi":[38.8600,65.7900],"Shahrisabz":[39.0556,66.8350],"Muborak":[39.2667,65.1500],"Dehqonobod":[38.4833,66.5167],"G'uzor":[38.6167,66.2500],
+    "Termiz":[37.2242,67.2783],"Boysun":[38.2167,67.1833],"Denov":[38.2722,67.8933],"Sherobod":[37.6667,67.0],"Sho'rchi":[37.9833,67.4667],
+    "Jizzax":[40.1158,67.8422],"Zomin":[39.9667,68.4],"Forish":[39.8667,67.5667],"G'allaorol":[40.3333,67.8333],"Do'stlik":[40.5167,68.0],
+    "Guliston":[40.4897,68.7789],"Sardoba":[40.6833,68.7],"Sirdaryo":[40.8333,68.6667],"Boyovut":[40.4833,68.2],"Paxtaobod":[40.3167,68.6667],
+    "Nukus":[42.4611,59.6103],"Mo'ynoq":[43.7667,59.0167],"Taxtako'pir":[42.0167,60.3167],"To'rtko'l":[41.5333,61.0],"Qo'ng'irot":[42.8333,58.9],
+    "Urganch":[41.5497,60.6322],"Xiva":[41.3783,60.3631],"Xonqa":[41.55,60.8],"Yangibozor":[41.4333,61.0],"Shovot":[41.5667,60.4833],"Hazorasp":[41.3167,61.0667],
+};
 
 function selectCity(countryCode, city) {
     state.city = city;
     state.country = COUNTRIES[countryCode].api;
     state.countryCode = countryCode;
     state.countryName = COUNTRIES[countryCode].name.replace(/^[^\s]+\s/,'');
+    // Koordinatalarni yangilash (Qibla uchun)
+    if (CITY_COORDS_ALL[city]) {
+        state.lat = CITY_COORDS_ALL[city][0];
+        state.lon = CITY_COORDS_ALL[city][1];
+        state.qiblaAngle = calcQibla(state.lat, state.lon);
+    }
     saveState();
     closeCityEditor();
     showToast(`📍 ${city} tanlandi`);
-
-    // Reload prayer times
     state.timings = null;
     state.compassActive = false;
     document.getElementById('city-display').textContent = city;
